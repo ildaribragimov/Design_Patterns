@@ -1,0 +1,101 @@
+/**
+ * Описание конструкции шаблона
+ */
+
+html, body, header, #page-content, footer {
+	width:100%;
+}
+
+html, body {
+	height:100%;
+}
+
+#page-wrapper {
+	height:inherit;
+}
+
+aside {
+	width:25%;
+}
+
+aside#navigation {
+	float:left;
+}
+
+#content {
+	width:75%;
+	float:right;
+}
+
+@media screen and (min-width:1280px){
+	#page-wrapper {
+		width:80%;
+		margin:0px auto;
+	}
+}
+
+@media screen and (max-width:1279px) {
+	#page-wrapper {
+		width:1024px;
+		margin:0px auto;
+	}
+}
+
+@media screen and (max-width:1041px) {
+	#page-wrapper, aside, #content {
+		width:100%;
+	}
+}
+
+/*
+@media screen and (max-width:976px) {
+	#page-wrapper {
+		width:100%;
+	}
+	aside, #content {
+		width:100%;
+	}
+}
+*/
+
+.clr {
+	clear:both;
+}
+/* конец */
+
+
+/**
+ * Описание стилей основных блоков конструкции шаблона
+ */
+
+footer, #page-content {
+	color:white;
+}
+
+html {
+	background-color:grey;
+}
+
+header {
+	height:20%;
+}
+
+header {
+	background-color:yellow;
+}
+
+#page-content {
+	background-color:white;
+}
+
+nav {
+	background-color:red;
+}
+
+#content {
+	background-color:purple;
+}
+
+#leftModulePosition {
+	background-color:blue;
+}

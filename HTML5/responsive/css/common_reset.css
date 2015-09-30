@@ -1,0 +1,33 @@
+/**
+ * Переопределение стилей по умолчанию
+ */
+
+html, body {
+width: 100%;
+height: 100%;
+}
+html, body, div, span, ul, li, p, h1, h2, h3, h4, h5, h6, img, canvas, form, input, select, button, ol {
+margin: 0px;
+padding: 0px;
+}
+img, canvas, input, textarea, button, table, tr, td, div {
+border: 0;
+}
+input, textarea, button, a, ul, li {
+outline: none;
+background-color:transparent;
+}
+ul, li {
+list-style-type: none;
+}
+
+a {
+cursor:pointer;
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+button {
+text-align:left;
+}
