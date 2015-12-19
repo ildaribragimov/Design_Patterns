@@ -1,14 +1,8 @@
 /* ==== Решение ============================================= *
  * ==== Отмена действия по умолчанию браузера на событие ==== *
  * ========================================================== */
-function preventDefault(event) {
-	event = event || window.event;
-	event.preventDefault
-		? event.preventDefault()
-		: event.returnValue = false;
-}
+function preventDefault(event) { event = event || window.event; event.preventDefault ? event.preventDefault() : event.returnValue = false; }
 /* ========================================================== */
-
 
 
 /* ==== Решение ==================================== *
@@ -43,9 +37,6 @@ function preventDefaultForScrollKeys(event) {
 
 /**
  * Функция "Блокировки прокрутки страницы"
- *
- * Параметры функции:
- * e (тип: Объект) - объект, содержащий данные о событии
  */
 function disableScroll() {
 	// Старые версии FF
@@ -63,9 +54,6 @@ function disableScroll() {
 
 /**
  * Функция "Активации прокрутки страницы"
- *
- * Параметры функции:
- * e (тип: Объект) - объект, содержащий данные о событии
  */
 function enableScroll() {
 	// Старые версии FF
