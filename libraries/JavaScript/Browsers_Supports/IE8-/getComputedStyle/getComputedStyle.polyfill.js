@@ -1,6 +1,3 @@
-/* ==== Решение "getComputedStyle.polyfill.js" ====================== *
- * ==== Добавление поддержки для IE 8- метода "getComputedStyle" ==== *
- * ================================================================== */
 if (!window.getComputedStyle) {
     window.getComputedStyle = function(el, pseudo) {
         this.el = el;
@@ -17,4 +14,3 @@ if (!window.getComputedStyle) {
         return this;
     };
 }
-/* ================================================================== */
