@@ -1,0 +1,27 @@
+section{
+    width:600px;
+    height:300px;
+    padding:50px;
+    border:1px solid black;
+    float: left;
+}
+div{
+    width:200px;
+    height:200px;
+    padding:50px 0;
+    float: left;
+}
+div.animated:first-child {
+    background-color:blue;
+}
+div.animated:last-child {
+    background-color:green;
+}
+span{
+    width:100px;
+    height:100px;
+    padding:50px;
+    background-color:transparent;
+    border: 1px solid black;
+    display:block;
+}
