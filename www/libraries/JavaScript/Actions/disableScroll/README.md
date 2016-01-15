@@ -79,7 +79,7 @@ enableScroll();
     function preventDefault(event) { event = event || window.event; event.preventDefault ? event.preventDefault() : event.returnValue = false; }
     /* ========================================================== */
 
-    /* ==== Решение "disable(enable)Scroll.js" ========= *
+    /* ==== Решение "disableScroll.js" ========= *
      * ==== Блокировка/Активация прокрутки страницы ==== *
      * ================================================= */
     var keys = {32: 1, 33: 1, 34: 1, 35: 1, 36: 1, 37: 1, 38: 1, 39: 1, 40: 1};
@@ -137,7 +137,7 @@ enableScroll();
 
 ```html
 <script type='text/javascript'>
-    /* ==== Решение "disable(enable)Scroll.js" ========= *
+    /* ==== Решение "disableScroll.js" ========= *
      * ==== Блокировка/Активация прокрутки страницы ==== *
      * ================================================= */
     var keys={32:1,33:1,34:1,35:1,36:1,37:1,38:1,39:1,40:1};function preventDefaultForScrollKeys(event){if(keys[event.keyCode]){event.preventDefault();return false;}}function disableScroll(){if(window.addEventListener){window.addEventListener('DOMMouseScroll',function(event){event.preventDefault();},false);}window.onwheel=function(event){event.preventDefault();};window.onmousewheel=document.onmousewheel=function(event){event.preventDefault();};window.ontouchmove=function(event){event.preventDefault();};document.onkeydown=preventDefaultForScrollKeys;}function enableScroll(){if(window.removeEventListener){window.removeEventListener('DOMMouseScroll',function(event){event.preventDefault();},false);}window.onwheel=null;window.onmousewheel=document.onmousewheel=null;window.ontouchmove=null;document.onkeydown=null;}
@@ -157,7 +157,7 @@ disableScroll();
 ```js
 // Активация прокрутки страницы
 enableScroll();
-
+```
 
 ## Перечень файлов в пакете решения ##
 
