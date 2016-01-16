@@ -44,6 +44,4 @@ function scrollingToAnchor(event, callback = null){
                 window.scrollBy(0,scrollStep);
             }
         }, 1000/fps);
-    // Отмена действия по умолчанию браузера
-    event.preventDefault();
 };
