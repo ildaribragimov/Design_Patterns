@@ -39,6 +39,7 @@ Object.prototype.in_array = function(needle) {
  * * resultArray (тип: array) - Результат сравнения. 
  */
 Object.prototype.array_diff = function(filteringObject) {
+    // Создание результирующего массива
     var resultArray = [];
     // Обход объекта (массива), в котором необходимо искать совпадения значений элементов, в цикле
     for(var i = 0, l = this.length; i < l; i++)	{
