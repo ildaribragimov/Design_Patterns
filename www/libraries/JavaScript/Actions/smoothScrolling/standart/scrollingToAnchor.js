@@ -4,18 +4,18 @@
 /* ============================================== *
  * ==== Решение "Плавная прогрутка до якоря" ==== *
  * ============================================== */
-function smoothScrolling(event){
+function scrollingToAnchor(event){
     /** 
      * Объявление переменных:
      *
      * anchor (тип: string) - Строка, содержащая ссылку на якорь 
      * scrollTopValue (тип: number) - Расстояние от верхнего края окна браузера до верхней границы якоря
-     * interval (тип: number) - Частота смены кадров (в секунду)
+     * fps (тип: number) - Частота смены кадров (в секунду)
      * scrollPageY - Функция смены положения области просмотра браузера относительно его текущего положения
      */
     var anchor = event.target.getAttribute('href'),
         scrollTopValue = document.getElementById( anchor.match(/[^#].*/) ).offsetTop,
-        interval = 1000/100,
+        fps = 75,
         scrollPageY = setInterval(function(){
             /** 
              * Объявление переменных:
@@ -29,17 +29,18 @@ function smoothScrolling(event){
                 scrollStep = (Math.abs(needToScroll) != 2)
                     ? needToScroll/3
                     : needToScroll;
-
             // Проверка расстояния, на которое необходимо прокрутить страницу на равенство 0 (нулю)
             if (needToScroll == 0) {
                 // Выход из интервальной функции
                 clearInterval(scrollPageY);
+                // Выходим из функции и возвращаем положительный результат завершения
+                return true;
             } else {
                 // Вызов метода "Прокрутки относительно текущего положения" объекта "window"
                 window.scrollBy(0,scrollStep);
             }
 
-        }, interval);
-    // Запрет на переход по ссылке
+        }, 1000/fps);
+    // Выходим из функции и возвращаем отрицательный результат завершения
     return false;
 };
