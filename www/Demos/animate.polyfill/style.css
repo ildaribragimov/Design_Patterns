@@ -1,0 +1,32 @@
+section{
+    width:900px;
+    height:300px;
+    padding:50px;
+}
+div{
+    width:200px;
+    height:200px;
+    background-color:grey;
+}
+span{
+    width:198px;
+    height:100px;
+}
+a{
+    width:196px;
+}
+
+section,div{
+    float: left;
+}
+section,div,span,a{
+    border: 1px solid black;
+}
+div,span{
+    padding:50px 0;
+}
+span,a{
+    height:100px;
+    background-color:transparent;
+    display:block;
+}
