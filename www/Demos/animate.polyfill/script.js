@@ -20,7 +20,9 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
         // Если текущее свойство является собственным (не унаследованным)
         if (properties.hasOwnProperty(property)) {
             // Вывод пары "ключ => значение" в консоль браузера
-            console.log( "Ключ: " + property + " значение: " + properties[property] );
+            // console.log( "Ключ: " + property + " значение: " + properties[property] );
+            // Изменение значений CSS-свойств элемента
+            this.style[property] = properties[property];
         }
     }
     // Вызов пользовательской функции после окончания анимации
@@ -34,7 +36,7 @@ document.querySelector('a')
         // Отмена действия по умолчанию браузера на событие
         event.preventDefault();
         // вызов метода анимации на целевом объекте
-        event.target.animate({width:'350px', height:'400px'}, function(){
+        event.target.animate({width:'350px'}, function(){
             console.log('Анимация завершена!');
         });
     });

@@ -1,15 +1,15 @@
 section{
-    width:900px;
+/*    width:900px;*/
     height:300px;
     padding:50px;
 }
 div{
-    width:200px;
+/*    width:200px;*/
     height:200px;
     background-color:grey;
 }
 span{
-    width:198px;
+/*    width:198px;*/
     height:100px;
 }
 a{
