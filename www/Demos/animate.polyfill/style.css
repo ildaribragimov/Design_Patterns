@@ -1,19 +1,12 @@
 section{
-/*    width:900px;*/
-    height:300px;
     padding:50px;
 }
 div{
-/*    width:200px;*/
-    height:200px;
     background-color:grey;
-}
-span{
-/*    width:198px;*/
-    height:100px;
 }
 a{
     width:196px;
+    height:100px;
 }
 
 section,div{
@@ -25,8 +18,7 @@ section,div,span,a{
 div,span{
     padding:50px 0;
 }
-span,a{
-    height:100px;
+span,a{    
     background-color:transparent;
     display:block;
 }
