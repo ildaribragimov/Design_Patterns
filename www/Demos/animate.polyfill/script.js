@@ -26,7 +26,7 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
         animationSteps = options.duration/interval, // Количество кадров анимации, за указанное время
         elementStyle = getComputedStyle(self), // Получение исходных CSS-стилей элемента, на котором вызван метод анимации
         startingPointStyle = new Object,
-        //deltaStyles = new Object, // Создание объекта разниц значнений CSS-свойств
+        deltaStyles = new Object, // Создание объекта разниц значнений CSS-свойств
         deltaStylesPerStep = new Object; // Создание объекта значнений на которые должны измениться CSS-свойства за один кадр анимации
     // Перебор анимирумых свойств объекта в цикле
     for(var property in properties){
@@ -34,10 +34,10 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
         if (properties.hasOwnProperty(property)) {
             startingPointStyle[property] = parseFloat( elementStyle[property] );
             // Получение разницы начальных и конечных значений CSS-свойств объекта и добавление их в массив конечных значений CSS-свойств
-            //deltaStyles[property] = parseFloat( properties[property] ) - startingPointStyle[property];
+            deltaStyles[property] = parseFloat( properties[property] ) - startingPointStyle[property];
             // Получение значнений на которые должны измениться CSS-свойства за один кадр и добавние их в массив
-            //deltaStylesPerStep[property] = deltaStyles[property]/animationSteps;
-            deltaStylesPerStep[property] = (parseFloat( properties[property] ) - startingPointStyle[property]) / animationSteps;
+            deltaStylesPerStep[property] = deltaStyles[property]/animationSteps;
+            //deltaStylesPerStep[property] = (parseFloat( properties[property] ) - startingPointStyle[property]) / animationSteps;
         }
     }
 
@@ -56,8 +56,8 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
             switch (options.easingFunc){
                 // Если функция - линейная
                 case 'linear':
-                    //for(var prop in deltaStyles){
-                    for(var prop in deltaStylesPerStep){
+                    for(var prop in deltaStyles){
+                    //for(var prop in deltaStylesPerStep){
                         // Если текущее свойство является собственным (не унаследованным)
                         if (deltaStylesPerStep.hasOwnProperty(prop)) {
                             // Изменение значений CSS-свойств элемента
