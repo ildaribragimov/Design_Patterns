@@ -28,6 +28,7 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
         startingPointStyle = new Object,
         deltaStyles = new Object, // Создание объекта разниц значнений CSS-свойств
         deltaStylesPerStep = new Object; // Создание объекта значнений на которые должны измениться CSS-свойства за один кадр анимации
+
     // Перебор анимирумых свойств объекта в цикле
     for(var property in properties){
         // Если текущее свойство является собственным (не унаследованным)
@@ -35,9 +36,12 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
             startingPointStyle[property] = parseFloat( elementStyle[property] );
             // Получение разницы начальных и конечных значений CSS-свойств объекта и добавление их в массив конечных значений CSS-свойств
             deltaStyles[property] = parseFloat( properties[property] ) - startingPointStyle[property];
+            //console.log( deltaStyles[property] + " = " + parseFloat( properties[property] ) + " - " + startingPointStyle[property] );
             // Получение значнений на которые должны измениться CSS-свойства за один кадр и добавние их в массив
             deltaStylesPerStep[property] = deltaStyles[property]/animationSteps;
+            console.log("deltaStylesPerStep[property] = "+ deltaStyles[property]/animationSteps);
             //deltaStylesPerStep[property] = (parseFloat( properties[property] ) - startingPointStyle[property]) / animationSteps;
+            console.log(deltaStylesPerStep[property] + " = " + deltaStyles[property]/animationSteps);
         }
     }
 
