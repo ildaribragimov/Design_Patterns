@@ -1,6 +1,5 @@
 // Явное указание на режим строгого соответствия современному стандарту
 "use strict";
-
 /**
  * Метод "animate"
  * выполняет анимацию над элементом, на котором был вызван
@@ -19,57 +18,76 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
     // Объявление перменных
     var self = this, // Сохранение ссылки на элемент на котором был вызван метод в переменную
         elementStyle = getComputedStyle(self), // Получение исходных CSS-стилей элемента, на котором вызван метод анимации
-        startingPointStyle = new Object, //
-        deltaStylesPerStep = new Object; // Создание объекта значнений на которые должны измениться CSS-свойства за один кадр анимации
+        startingPointStyle = new Object, // Объект начальных значений анимируемых CSS-свойств
+        deltaStyles = new Object; // Объект разниц начальных и целевых значений анимируемых CSS-свойств
     // Перебор анимирумых свойств объекта в цикле
     for(var property in properties){
         // Если текущее свойство является собственным (не унаследованным)
         if (properties.hasOwnProperty(property)) {
-            // 
+            // Создание объекта начальных значений анимируемых CSS-свойств
             startingPointStyle[property] = parseFloat( elementStyle[property] );
             // Создание объекта значнений на которые должны изменяться CSS-свойства за 1мс времени по линейной функции
-            deltaStylesPerStep[property] = (parseFloat( properties[property] ) - startingPointStyle[property]) / options.duration;
+            deltaStyles[property] = (parseFloat( properties[property] ) - startingPointStyle[property]);
         }
     }
-    // Метод анимации в момент timePassed по заданной функции динамики
-    function draw(easingFunc, timePassed) {
-        // Выполнение анимации по пользовательской функции анимации
+    // Метод временной функций, вычисляющей состояние анимации по текущему времени
+    function timing(timeFraction){
+        // Выполнение анимации по преопределенным функциям анимации
         switch (options.easingFunc){
             case 'linear':
-                // Перебор анимирумых свойств объекта в цикле
-                for(var property in properties){
-                    // Если текущее свойство является собственным (не унаследованным)
-                    if (properties.hasOwnProperty(property)) {
-                        // Изменение значений CSS-свойств элемента
-                        self.style[property] = startingPointStyle[property] + timePassed * deltaStylesPerStep[property]+"px";
-                    }
-                }   
-                // Прерывание выполнения и выход из конструкции SWITCH
-                break;
-            // Если функция пользовательская
-            default:
-                options.easingFunc();
-                // Прерывание выполнения и выход из конструкции SWITCH
-                break;
+                return timeFraction;
+            case 'easeInQuad':
+                return Math.pow(timeFraction, 2);
+            case 'easeOutQuad':
+                return 1 - Math.pow(1 - timeFraction, 2);
+            case 'easeInOutQuad':
+                return (timeFraction < 0.5) ? (Math.pow(2 * timeFraction, 2) / 2) : (( 2 - Math.pow(2 * (1 - timeFraction), 2) ) / 2);
+            case 'easeInCubic':
+                return Math.pow(timeFraction, 3);
+            case 'easeOutCubic':
+                return 1 - Math.pow(1 - timeFraction, 3);
+            case 'easeInOutCubic':
+                return (timeFraction < 0.5) ? (Math.pow(2 * timeFraction, 3) / 2) : (( 2 - Math.pow(2 * (1 - timeFraction), 3) ) / 2);
+            case 'easeInQuint':
+                return Math.pow(timeFraction, 5);
+            case 'easeOutQuint':
+                return 1 - Math.pow(1 - timeFraction, 5);
+            case 'easeInOutQuint':
+                return (timeFraction < 0.5) ? (Math.pow(2 * timeFraction, 5) / 2) : (( 2 - Math.pow(2 * (1 - timeFraction), 5) ) / 2);
         }
+        // Если функция пользовательская
+        return options.easingFunc(timeFraction);
+    }
+    // Метод анимации в момент timeFraction по заданной временной функции
+    function draw(timeFraction) {
+        // Получение состояния анимации по текущему времени
+        var progress = timing(timeFraction);
+        // Перебор анимирумых свойств объекта в цикле
+        for(var property in properties){
+            // Если текущее свойство является собственным (не унаследованным)
+            if (properties.hasOwnProperty(property)) {
+                // Изменение значений CSS-свойств элемента
+                self.style[property] = startingPointStyle[property] + progress * deltaStyles[property]+"px";
+            }
+        }   
     }
     // Метод с рекурсивным вызовом самого себя в зависимости от тех.возможностей браузера
     function animate(time){
-        // Объявление переменных:
-        var timePassed = time - animationStartTime; // Время, прошедшее с начала анимации
+        // Получение значения состояния завершенности анимации (принимает значение от 0 до 1)
+        var timeFraction = (time - animationStartTime) / options.duration; 
         // Если произошло превышение времени анимации, тогда происходит фиксация конца анимации
-        if (timePassed > options.duration) {
-            // Присвоение переменной прошедшего времени значения переменной продолжительности анимации
-            timePassed = options.duration;
+        if (timeFraction > 1) {
+            // Переопределение значения состояния завершенности анимации максимально возможным значением этого параметра
+            timeFraction = 1;
         }
         // Вызов метода анимации в момент timePassed
-        draw(options.easingFunc, timePassed);
+        draw(timeFraction);
         // Если время анимации не истекло
-        if (timePassed < options.duration) {
+        if (timeFraction < 1) {
             // Повторный вызов функции (следующего шага) анимации
             requestAnimationFrame(animate);
             // Прерывание выполнения и выход из функции
-            return;
+            return;            
         }
         // Вызов пользовательской функции обратного вызова после окончания анимации, если пользовательская функция задана
         if(callback){ callback(); }            
@@ -78,15 +96,3 @@ Object.prototype.animate = function(properties, callback = null, options = {easi
     var animationStartTime = performance.now(), // Время, прошедшее с начала загрузки страницы.
         animationStep = requestAnimationFrame(animate); // Идентификатор шага анимации, возвращенный функцией "requestAnimationFrame"
 }
-
-// Получение ссылки на объект с именем HTML-тега "а"
-document.querySelector('span')
-    // Назначение обработчика на событие "клик по элементу"
-    .addEventListener("click", function(event){
-        // Отмена действия по умолчанию браузера на событие
-        event.preventDefault();
-        // вызов метода анимации на целевом объекте
-        event.target.animate({width:"350px", height:"200px"}, function(){
-            console.log('Анимация завершена!');
-        }, {duration:100});
-    });
