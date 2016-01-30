@@ -17,6 +17,7 @@ function scrollingToAnchor(event, callback = null){
      * fps (тип: number) - Частота смены кадров (в секунду)
      * scrollPageY - Функция смены положения области просмотра браузера относительно его текущего положения
      */
+    console.log(document.getElementById( anchor.match(/([^#].*)/) ).offsetTop);
     var anchor = event.target.getAttribute('href'),
         scrollTopValue = document.getElementById( anchor.match(/([^#].*)/) ).offsetTop,
         fps = 75,
