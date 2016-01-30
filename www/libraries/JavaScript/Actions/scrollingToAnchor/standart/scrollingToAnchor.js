@@ -18,7 +18,7 @@ function scrollingToAnchor(event, callback = null){
      * scrollPageY - Функция смены положения области просмотра браузера относительно его текущего положения
      */
     var anchor = event.target.getAttribute('href'),
-        scrollTopValue = document.getElementById( anchor.match(/[^#].*/) ).offsetTop,
+        scrollTopValue = document.getElementById( anchor.match(/([^#].*)/) ).offsetTop,
         fps = 75,
         scrollPageY = setInterval(function(){
             /**
