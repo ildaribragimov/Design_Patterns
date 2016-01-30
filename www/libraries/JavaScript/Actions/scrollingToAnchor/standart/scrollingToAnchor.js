@@ -12,14 +12,25 @@ function scrollingToAnchor(event, callback = null){
     /** 
      * Объявление переменных:
      *
-     * anchor (тип: string) - Строка, содержащая ссылку на якорь 
+     * link (тип: string) - Значение атрибута HREF целевого элемента (Строка, содержащая ссылку на якорь)
+     * anchor (тип: boolean) - Ссылка на объект закладки (Якоря)
+     */
+    var link = event.target.getAttribute('href'),
+        anchor = document.getElementById( link.match(/[^#].*/) );
+    // Если закладка не найдена по указанной ссылке, выходим из функции
+    if (anchor === null) {
+        // Вызов пользовательской функции после окончания анимации
+        if (callback) { callback(); }
+        return;
+    }
+    /** 
+     * Объявление переменных:
+     *
      * scrollTopValue (тип: number) - Расстояние от верхнего края окна браузера до верхней границы якоря
      * fps (тип: number) - Частота смены кадров (в секунду)
      * scrollPageY - Функция смены положения области просмотра браузера относительно его текущего положения
      */
-    console.log(document.getElementById( anchor.match(/([^#].*)/) ).offsetTop);
-    var anchor = event.target.getAttribute('href'),
-        scrollTopValue = document.getElementById( anchor.match(/([^#].*)/) ).offsetTop,
+    var scrollTopValue = anchor.offsetTop,
         fps = 75,
         scrollPageY = setInterval(function(){
             /**
