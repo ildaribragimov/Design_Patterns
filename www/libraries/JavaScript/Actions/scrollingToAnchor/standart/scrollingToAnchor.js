@@ -30,23 +30,36 @@ function scrollingToAnchor(event, callback = null){
      * fps (тип: number) - Частота смены кадров (в секунду)
      * scrollPageY - Функция смены положения области просмотра браузера относительно его текущего положения
      */
-    var scrollTopValue = anchor.offsetTop,
+    var viewport = document.documentElement,
+        viewportHeight = viewport.clientHeight,
+        pageHeight = Math.max(
+            document.body.scrollHeight, viewport.scrollHeight,
+            document.body.offsetHeight, viewport.offsetHeight,
+            document.body.clientHeight, viewport.clientHeight
+        ),
+        scrollTopValue = anchor.offsetTop,
         fps = 75,
         scrollPageY = setInterval(function(){
             /**
              * Объявление переменных:
              *
              * scrolled (тип: number) - Положение области просмотра окна браузера относительно левого верхнего угла страницы
+             * enableScrollHeight (тип: number) - Доступная высота для прокрутки страницы
              * needToScroll (тип: number) - Расстояние, на которое необходимо прокрутить страницу относительно ее текущего положения
              * scrollStep (тип: number) - Шаг прокрутки страницы на текущем кадре в пикселях.
              */
             var scrolled = window.pageYOffset,
+                enableScrollHeight = pageHeight - ( scrolled + viewportHeight),
                 needToScroll = (scrollTopValue-scrolled),
                 scrollStep = (Math.abs(needToScroll) != 2)
                     ? needToScroll/3
                     : needToScroll;
-            // Проверка расстояния, на которое необходимо прокрутить страницу на равенство 0 (нулю)
-            if (needToScroll == 0) {
+            // Если:
+            // 1) Расстояние, на которое необходимо прокрутить страницу = 0;
+            // Или:
+            // 1) Доступная высота для прокрутки страницы <= 0;
+            // 2) И Разница между доступной высоты для прокрутки страницы и шагом прокрутки страницы на текущем кадре <= 0.
+            if (needToScroll == 0 || ( enableScrollHeight <= 0 && enableScrollHeight - scrollStep <= 0 ) ) {
                 // Выход из интервальной функции
                 clearInterval(scrollPageY);
                 // Вызов пользовательской функции после окончания анимации
