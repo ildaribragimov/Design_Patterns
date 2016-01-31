@@ -32,14 +32,20 @@ function preventDefaultForScrollKeys(event) {
 }
 
 /**
+ * Функция "Блокировки прокрутки колеса мыши"
+ */
+function disableMouseScroll() {
+    event.preventDefault();
+    return false;
+}
+
+/**
  * Функция "Блокировки прокрутки страницы"
  */
 function disableScroll() {
 	// Старые версии FF
     if (window.addEventListener) {
-        window.addEventListener('DOMMouseScroll', function(event){
-            event.preventDefault();
-        }, false); 
+        window.addEventListener('DOMMouseScroll', disableMouseScroll, false); 
     }
 	// Современный стандарт
     window.onwheel = function(event){
@@ -62,9 +68,7 @@ function disableScroll() {
 function enableScroll() {
 	// Старые версии FF
     if (window.removeEventListener) {
-        window.removeEventListener('DOMMouseScroll', function(event){
-            event.preventDefault();
-        }, false); 
+        window.removeEventListener('DOMMouseScroll', disableMouseScroll, false); 
     }
 	// Современный стандарт
 	window.onwheel = null;
