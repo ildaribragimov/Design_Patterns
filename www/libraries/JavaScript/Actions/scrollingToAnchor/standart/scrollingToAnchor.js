@@ -8,7 +8,9 @@
  * * event (тип: object) - Ссылка на объект события
  * * callback (тип: function) - Функция обратного вызова, исполняемая при завершении анимации
  */
-function scrollingToAnchor(event, callback = null){
+function scrollingToAnchor(event, callback){
+    // Назначение атрибуту значения по умолчанию
+    callback = callback || null;
     /** 
      * Объявление переменных:
      *
