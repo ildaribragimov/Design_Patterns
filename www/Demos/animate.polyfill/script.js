@@ -11,8 +11,10 @@
  * * * easingFunction (тип: string) - Функция динамики выполнения, описывающая график анимации.
  * * * duration (тип: number) - Продолжительность анимации
  */
-Object.prototype.animate = function(properties, callback = null, options = {easingFunc, duration}){
+Object.prototype.animate = function(properties, callback, options){
     // Назначение значений по умолчанию параметрам анимации, если они не были переданы в вызове
+    callback = callback || null;
+    options = options || new Object;
     options.easingFunc = options.easingFunc || 'linear';
     options.duration = options.duration || 1000;
     // Объявление перменных
