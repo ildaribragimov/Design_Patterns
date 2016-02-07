@@ -5,29 +5,27 @@
     <meta charset="utf-8">
     <link href="normalize.css" rel="stylesheet" type="text/css">
     <link href="style.css" rel="stylesheet" type="text/css">
-    <script defer src="plugin.popUp.min.js" type="text/javascript"></script>
+    <link href="plugin.popUp.css" rel="stylesheet" type="text/css">
+    <script defer src="/libraries/JavaScript/Plugins/plugin.popUp/plugin.popUp.js" type="text/javascript"></script>
     <script defer type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(){
-            // Получение ссылки на элемент "body"
+        // Явное указание на режим строгого соответствия современному стандарту
+        "use strict";
+        // Исполнение скрипта при готовности DOM-структуры документа
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            // Создание экземпляра объекта "Всплывающего окна" с значением атрибута "value" кнопки в качестве ID
+            var popup = new popUp("action1", {type: "alert", header: "Уведомление", data:"Это всплывающее окно с уведомлением о каком либо действии или новости!", navigation:"minimal"});
+            
+            // Получение ссылки на элемент вызывающий окно
             document.querySelector('button[value="action1"]')
-                // Назначение обработчика события клика (татча) по кнопкам
+                // Назначение обработчика события клика по элементу
                 .addEventListener("click", function(event){
                     // Отмена действия по умолчанию браузера на событие
                     event.preventDefault();
-                    /** Объявление перменных:
-                     *
-                     * * popup (тип: object) - Экземпляр объекта "Всплывающее окно" с значением атлибута "value" кнопки в качестве ID
-                     */
-                    var popup = new popUp("action1", {type: "alert", header: "Уведомление", data:"Это всплывающее окно с уведомлением о каком либо действии или новости!", navigation:"minimal"});
+                    // Вызов метода "Открыть окно"
+                    popup.open();
                 });
 
-/*
-            // Вызов функции готового решения "плавная прокрутка страницы до якоря"
-            scrollingToAnchor(event, function(){
-                // Сворачивание панели навигации, если она развернута
-                if ( slideNavPannel.enable == true ) { slideNavPannel.hide(); }
-            });
-*/
         });
     </script>
 </head>
