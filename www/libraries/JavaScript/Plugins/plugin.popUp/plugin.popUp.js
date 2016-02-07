@@ -1,0 +1,7 @@
+// Явное указание на режим строгого соответствия современному стандарту
+"use strict";
+
+/**
+ * Плагин создания "Всплывающего окна"
+ */
+function popUp(g,a){function h(){var b=document.createElement("div");b.setAttribute("class","controls");var a=document.createElement("a");a.setAttribute("class","close");a.setAttribute("href","/");a.setAttribute("target","_self");a.addEventListener("click",function(a){a.preventDefault();k.close()});a.innerHTML='<span class="icon -m">\u0417\u0430\u043a\u0440\u044b\u0442\u044c</span>';b.appendChild(a);return b}function l(){var b=document.createElement("div");b.setAttribute("class","header");a.header&&(b.innerHTML='<div class="title">'+a.header+"</div>");b.appendChild(h());return b}function m(){var b=document.createElement("div");b.setAttribute("class","content");b.innerHTML=a.data;return b}var k=this;a=a||{};a.type=a.type||"alert";a.header=a.header||null;a.data=a.data||"\u0414\u0430\u043d\u043d\u044b\u0435 \u043d\u0435 \u0431\u044b\u043b\u0438 \u043f\u0435\u0440\u0435\u0434\u0430\u043d\u044b!";a.navigation=a.navigation||"standart";var c=function(){for(var a=["popupWindow","wrapper","container"],d=null,e=0;e<a.length;e++){var f=document.createElement("div");if(0==e)var c=f;f.setAttribute("class",a[e]);d&&d.appendChild(f);d=f;e==a.length-1&&(d.appendChild(l()),d.appendChild(m()))}c.setAttribute("id",g);return c}();document.querySelector("body").appendChild(c);this.open=function(){c.classList.add("opened")};this.close=function(){c.classList.remove("opened")}};
