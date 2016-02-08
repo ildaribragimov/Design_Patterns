@@ -1,173 +1,78 @@
-# Disable/Enable Scroll #
+# PopUp Plugin #
 
-Данное решение позволяет Блокировать и Активировать прокрутку страницы.
+Данное решение позволяет создавать всплывающее окно на лету и вставлять в него данные.
 
 
 ## Где применяется? ##
 
-Решение может применяться в ситуациях, когда необходимо заблокировать прокрутку страницы. Вот некоторые из таких ситуаций:
+Решение может применяться в ситуациях, когда необходимо вызвать в модальном окне какие-либо данные. Вот некоторые из таких ситуаций:
 
-* При открытии выезжающей боковой панели меню (такое меню часто встречается в адаптивных шаблонах веб-сайтов);
-* При всплытии модальных или диалоговых окон. Особенно, если задний план при этом необходимо размыть, привязав тем самым внимание посетителя на модальном окне;
-* Эмуляция синхронной работы с эмулируемыми программно модальными окнами. Т.е. чтобы работа с сайтом была невозможной до тех, пор пока не будет ракончена работа пользователя с активным объектом (подразумевается окно или другой элемент сигнализирующий прогресс выполнениня текущей операции посетителя).
-
-
-## Отслеживаемые события при заблокированной прогрутке ##
-
-Отслеживаются и блокируются обработчики следующих событий:
-
-1) "onkeydown" - Нажатие клавиш:
-
-    * Пробел
-    * "pageup"
-    * "pagedown"
-    * "end"
-    * "home"
-    * Стрелка "Влево"
-    * Стрелка "Вверх"
-    * Стрелка "Вправо"
-    * Стрелка "Вниз"
-
-2) "onmousewheel" - Прокрутка колеса
-
-3) "ontouchmove" - скроллинг на емкостных экранах
+* Уведомление посетителя о новых событиях произошедших за период отсутствия посетителя на сайте;
+* Подтверждение действий посетителя;
+* Запрос ввода каких-либо данных для совершения какого-либо действия.
 
 
 ## Пример использования ##
 
-### Для кроссбраузерного применения (IE 8 и раннее) ###
-#### Вариант 1. Подключение внешних файлов ####
-
-Подключитие необходимый для корректной работы решения, файл скрипта "event.preventDefault.polyfill.js" (Файл кроссбраузерной отмены действий по умолчанию браузера на события) в секцию HEAD html-страницы. Следом за ним подключитие файл скрипта "disableScroll.js" (или "disableScroll.min.js") в секцию HEAD html-страницы.
-
-```html
-<script defer type='text/javascript' src='/path/to/event.preventDefault.polyfill.js'></script>
-<script defer type='text/javascript' src='/path/to/disableScroll.js'></script>
-```
-
-Далее можно вызывать действия "Блокировки/Активации" прокрутки с траницы в любом месте исполняемого JS-скрипта. Например, так:
-
-```js
-// Блокировка прокрутки страницы
-disableScroll();
-```
-
-или так:
-
-```js
-// Активация прокрутки страницы
-enableScroll();
-```
-
-Важно подключить JS-файл решения "Блокировки/Активации прокрутки страницы (disableScroll.js)" перед подключением исполняемого JS-скрипта. Также необходимо установить атрибут "defer" при подключении скриптов решения и исполняемого JS-скрипта, чтобы соблюсти очередность загружаемых файлов.
-
-
-#### Вариант 2. Вставка блока кода непосредственно в исполняемый JS-файл ####
-
-Вставьте последовательно один за другим блоки кода файлов "event.preventDefault.polyfill.js" и "disableScroll.js" в исполняемый JS-скрипт.
-
-```html
-<script type='text/javascript'>
-    /* ==== Решение "preventDefault.js" ========================= *
-     * ==== Отмена действия по умолчанию браузера на событие ==== *
-     * ========================================================== */
-    function preventDefault(event) { event = event || window.event; event.preventDefault ? event.preventDefault() : event.returnValue = false; }
-    /* ========================================================== */
-
-    /* ==== Решение "disableScroll.js" ========= *
-     * ==== Блокировка/Активация прокрутки страницы ==== *
-     * ================================================= */
-    var keys = {32: 1, 33: 1, 34: 1, 35: 1, 36: 1, 37: 1, 38: 1, 39: 1, 40: 1};
-    function preventDefaultForScrollKeys(event) { if (keys[event.keyCode]) { preventDefault(event); return false; } }
-    function disableScroll() { if (window.addEventListener) { window.addEventListener('DOMMouseScroll', preventDefault, false); } window.onwheel = preventDefault; window.onmousewheel = document.onmousewheel = preventDefault; window.ontouchmove  = preventDefault; document.onkeydown  = preventDefaultForScrollKeys; }
-    function enableScroll() { if (window.removeEventListener) { window.removeEventListener('DOMMouseScroll', preventDefault, false); } window.onwheel = null; window.onmousewheel = document.onmousewheel = null; window.ontouchmove = null; document.onkeydown = null; }
-    /* ============== */
-</script>
-```
-
-И далее в любом месте этого скрипта вызывайте методы "disableScroll()":
-
-```js
-// Блокировка прокрутки страницы
-disableScroll();
-```
-
-или "enableScroll()":
-
-```js
-// Активация прокрутки страницы
-enableScroll();
-```
-
-
 ### Для кроссбраузерного применения в современных браузерах (IE 9 и позднее) ###
 #### Вариант 1. Подключение внешних файлов ####
 
-Подключитие файл скрипта "disableScroll.js" (или "disableScroll.min.js") в секцию HEAD html-страницы:
+Подключитие файлы в секцию HEAD html-страницы в следующем порядке:
+1) "plugin.popUp.css";
+2) "plugin.popUp.js" (или "plugin.popUp.min.js").
 
 ```html
-<script defer type='text/javascript' src='/path/to/disableScroll.js'></script>
+<link href="plugin.popUp.css" rel="stylesheet" type="text/css">
+<script defer type='text/javascript' src='/path/to/plugin.popUp.js'></script>
 ```
 
-Далее можно вызывать действия "Блокировки/Активации" прокрутки с траницы в любом месте исполняемого JS-скрипта. Например, так:
+Далее можно вызывать действие создания всплывающего окна можно в любом месте исполняемого JS-скрипта. Например, так:
 
 ```js
-// Блокировка прокрутки страницы
-disableScroll();
+// Допустим, элементом который вызывает всплывающее окно является кнопка с атрибутом "value"
+
+// Создание экземпляра объекта "Всплывающее окно" с значением "action1" атрибута "value" кнопки в качестве ID.
+var popup = new popUp("action1", {type: "alert", header: "Уведомление", data:"Это всплывающее окно с уведомлением о каком либо действии или новости!", navigation:"minimal"});
 ```
 
-или так:
-
-```js
-// Активация прокрутки страницы
-enableScroll();
-```
-
-Важно подключить JS-файл решения "Блокировки/Активации прокрутки страницы (disableScroll.js)" перед подключением исполняемого JS-скрипта. Также необходимо установить атрибут "defer" при подключении скриптов решения и исполняемого JS-скрипта, чтобы соблюсти очередность загружаемых файлов.
+Важно подключить JS-файл решения "Всплывающее окно (plugin.popUp.js)" перед подключением исполняемого JS-скрипта. Также необходимо установить атрибут "defer" при подключении скриптов решения и исполняемого JS-скрипта, чтобы соблюсти очередность загружаемых файлов.
 
 
 #### Вариант 2. Вставка блока кода непосредственно в исполняемый JS-файл ####
 
-Вставьте блок кода файла "disableScroll.js" в исполняемый JS-скрипт.
+Вставьте блок кода файла "plugin.popUp.min.js" в исполняемый JS-скрипт.
 
 ```html
 <script type='text/javascript'>
-    /* ==== Решение "disableScroll.js" ========= *
-     * ==== Блокировка/Активация прокрутки страницы ==== *
-     * ================================================= */
-    var keys={32:1,33:1,34:1,35:1,36:1,37:1,38:1,39:1,40:1};function preventDefaultForScrollKeys(event){if(keys[event.keyCode]){event.preventDefault();return false;}}function disableScroll(){if(window.addEventListener){window.addEventListener('DOMMouseScroll',function(event){event.preventDefault();},false);}window.onwheel=function(event){event.preventDefault();};window.onmousewheel=document.onmousewheel=function(event){event.preventDefault();};window.ontouchmove=function(event){event.preventDefault();};document.onkeydown=preventDefaultForScrollKeys;}function enableScroll(){if(window.removeEventListener){window.removeEventListener('DOMMouseScroll',function(event){event.preventDefault();},false);}window.onwheel=null;window.onmousewheel=document.onmousewheel=null;window.ontouchmove=null;document.onkeydown=null;}
-    /* ============== */
+    /**
+     * Плагин создания "Всплывающего окна"
+     */
+    function popUp(f,a){function g(){var b=document.createElement("div");b.setAttribute("class","controls");b.innerHTML='<a class="closeWindow" href="/" target="_self"><span class="icon -m"></span></a>';return b}function h(){var b=document.createElement("div");b.setAttribute("class","header");a.header&&(b.innerHTML='<div class="title">'+a.header+"</div>");b.appendChild(g());return b}function k(){var b=document.createElement("div");b.setAttribute("class","content");b.innerHTML=a.data;return b}a=a||{};a.type=a.type||"alert";a.header=a.header||null;a.data=a.data||"\u0414\u0430\u043d\u043d\u044b\u0435 \u043d\u0435 \u0431\u044b\u043b\u0438 \u043f\u0435\u0440\u0435\u0434\u0430\u043d\u044b!";a.navigation=a.navigation||"standart";document.querySelector("body").appendChild(function(){for(var b=["popupWindow","wrapper","container"],a=null,c=0;c<b.length;c++){var d=document.createElement("div");if(0==c)var e=d;d.setAttribute("class",b[c]);a&&a.appendChild(d);a=d;c==b.length-1&&(a.appendChild(h()),a.appendChild(k()))}e.setAttribute("id",f);return e}())};
 </script>
 ```
 
-И далее в любом месте этого скрипта вызывайте методы "disableScroll()":
+И далее в любом месте этого скрипта созадвайте экземпляры окон:
 
 ```js
-// Блокировка прокрутки страницы
-disableScroll();
-```
+// Допустим, элементом который вызывает всплывающее окно является кнопка с атрибутом "value"
 
-или "enableScroll()":
-
-```js
-// Активация прокрутки страницы
-enableScroll();
+// Создание экземпляра объекта "Всплывающее окно" с значением "action1" атрибута "value" кнопки в качестве ID.
+var popup = new popUp("action1", {type: "alert", header: "Уведомление", data:"Это всплывающее окно с уведомлением о каком либо действии или новости!", navigation:"minimal"});
 ```
 
 ## Поддержка браузеров ##
 
-На данный момент решение адекватно работает во всех современных браузерах, включая IE8-
+На данный момент решение адекватно работает во всех современных браузерах, начиная с IE9 и выше
 
 
 ## Перечень файлов в пакете решения ##
 
-В папаке "includingOldBrowsers" находятся версии поддерживающие старые версии браузеров, в том числе IE версий 8 и раннее
-В папке "standart" находятся версии поддерживающие все современные браузеры начиная c IE 9 и позднее.
+В корневой директории плагина размещаются два файла (полоная и компилированная версии кода):
 
-* disableScroll.min.js - минимизированная версия скрипта (удалены переносы строк и комментарии);
-* disableScroll.js - полная версия скрипта с подробными комментариями.
+* plugin.popUp.min.js - минимизированная версия скрипта (удалены переносы строк и комментарии);
+* plugin.popUp.js - полная версия скрипта с подробными комментариями.
 
 
 ## Демо-версии ##
 
-Этот раздел пока не заполнен
+Демо версия работы плагина размещены по адресу "/Demos/plugin.popUp/index.php"
