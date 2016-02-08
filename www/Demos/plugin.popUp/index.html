@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta charset="utf-8">
+    <link href="normalize.css" rel="stylesheet" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="/libraries/JavaScript/Plugins/plugin.popUp/plugin.popUp.css" rel="stylesheet" type="text/css">
+    <script defer src="/libraries/JavaScript/Plugins/plugin.popUp/plugin.popUp.min.js" type="text/javascript"></script>
+    <script defer type="text/javascript">
+        // Явное указание на режим строгого соответствия современному стандарту
+        "use strict";
+        // Исполнение скрипта при готовности DOM-структуры документа
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            // Создание экземпляра объекта "Всплывающего окна" с значением атрибута "value" кнопки в качестве ID
+            var popup = new popUp("action1", {type: "alert", header: "Уведомление", data:"<p>Это всплывающее окно с уведомлением о каком либо действии или новости!</p>", navigation:"minimal"});
+            
+            // Получение ссылки на элемент вызывающий окно
+            document.querySelector('button[value="action1"]')
+                // Назначение обработчика события клика по элементу
+                .addEventListener("click", function(event){
+                    // Отмена действия по умолчанию браузера на событие
+                    event.preventDefault();
+                    // Вызов метода "Открыть окно"
+                    popup.open();
+                });
+
+        });
+    </script>
+</head>
+<body>
+    <h1>Плагин "Всплывающее окно"</h1>
+    <section>
+        <div class="element-button centered">
+            <div class="button-wrapper">
+                <button class="-green" value="action1">
+                    <span class="title">Уведомление (alert)</span>
+                    <span class="clr"></span>
+                </button>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </section>
+    <section>
+        <div class="element-button centered">
+            <div class="button-wrapper">
+                <button class="-green" value="action2">
+                    <span class="title">Подтверждение (confirm)</span>
+                    <span class="clr"></span>
+                </button>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </section>
+    <section>
+        <div class="element-button centered">
+            <div class="button-wrapper">
+                <button class="-green" value="action3">
+                    <span class="title">Запрос (propt)</span>
+                    <span class="clr"></span>
+                </button>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </section>
+</body>
+</html>

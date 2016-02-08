@@ -1,0 +1,244 @@
+/**
+ * Подключение шрифтов
+ */
+
+/* Open Sans */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700italic,700&subset=cyrillic,latin);
+
+/* PT Serif */
+@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic);
+
+
+/**
+ * Global elements styles
+ */
+.clr {
+	clear:both;
+}
+/* ================ */
+
+
+/**
+ * Typographics
+ */
+html {
+	font-size:18px;
+	font-family: 'Open Sans', sans-serif;
+}
+body {
+	font-size:100%;
+	line-height:1.6666em;
+	text-align:center;
+}
+h1 {
+	font-family: 'PT Serif', 'Times New Roman';
+	font-weight: normal;
+}
+/* ================ */
+
+
+section {
+    width:100%;
+}
+
+/* Default Button Style */
+.element-button.centered .button-wrapper,
+.element-button.centered button {
+	float:left;
+	position:relative;
+}
+.button-wrapper {
+	padding-top:0.3333em;
+	padding-bottom:0.3333em;	
+}
+.element-button.centered .button-wrapper {
+	left:50%;
+}
+.element-button.centered button {
+	left:-50%;
+}
+button {
+	border-width:2px;
+	border-style:solid;
+	border-radius:4px;
+	padding-left:0;
+	padding-right:1em;
+	background:none;
+}
+button .title {
+	margin-left:1em;
+	float:left;
+}
+button .title {
+	margin-top:0.3888em;
+	margin-bottom:0.3888em;
+}
+button.-green {
+	border-color:#3b876f;
+	color:#3b876f;
+}
+button.-green:hover {
+	background:#3b876f;
+	color:#f8f8f9;
+}
+
+
+/**
+ * Redefinition of styles depending on the device
+ */
+
+/* For Desktop users (If window width <= 1280 px) */
+@media only screen and (max-width: 1296px) {
+	#rooms .roomsItem.-newYork {
+		background-image:url("../../media/rooms/new_york/low/CK1A9261.jpg");
+	}
+	#rooms .roomsItem.-japan {
+		background-image:url("../../media/rooms/japan/low/CK1A9294.jpg");
+	}
+	#reviews .arrows .arrowLeft {
+		left:15%;
+		left:calc( 0.5 * (50% - 120px) );
+	}
+	#reviews .arrows .arrowRight {
+		right:15%;
+		right:calc( 0.5 * (50% - 120px) );
+	}
+}
+
+/* For Desktop users (If window width >= 960 px) */
+@media only screen and (min-width:976px) {
+	.content-wrapper {
+		width:960px;
+	}
+    #about {
+		background-image:url(../../media/contacts/contacts_bg.jpg);
+	}
+}
+
+/* For Tablet & Smartphone users (If window width < 960 px) */
+@media only screen and (max-width: 976px) {
+	.section-wrapper {
+		width:auto;
+	}
+    #about {
+		background-image:url(../../media/contacts/contacts_bg_tablet.jpg);
+	}
+	
+	#topPannel .logotype {
+		left:50%;
+	}
+	#topPannel .logotype-wrapper {
+		margin-left:-50%;
+	}
+	#topPannel .burgerButton {
+		display:block;
+	}
+	#mainMenu {
+		top:60px;
+		left:0;
+		z-index:2;
+	}
+    #mainMenu,
+    #mainMenu ul li.menuItem {
+        width:240px;
+    }
+	#mainMenu .mainMenu-wrapper {
+		margin-left:0;
+	}
+	#mainMenu ul,
+	#mainMenu ul li.menuItem {
+		float:none;
+		text-align:center;
+	}
+	#mainMenu .menuItem {
+		border-left:0;
+		border-right:0;
+		border-top:1px solid rgba(255, 255, 255, 0.2);
+		border-bottom:1px solid rgba(0, 0, 0, 0.1);
+	}
+	#mainMenu a {
+		color:#f7da7e;
+	}
+}
+
+/* For Tablet users (If window width > 768 px and < 960 px) */
+@media only screen and (min-width:768px) and (max-width: 960px) {
+}
+
+/* For Smartphone users (If window width < 768 px) */
+@media only screen and (max-width:768px) {
+	body {
+		font-size:0.8888em;
+	}
+	h2 {
+		font-size:2.25em;
+		padding-left:0.6666em;
+		padding-right:0.6666em;
+	}
+	h4 {
+		padding-left:0.9em;
+		padding-right:0.9em;
+	}
+	p, #prices .priceLabel-content,
+	form {
+		padding-left:1.5em;
+		padding-right:1.5em;
+	}
+	.section-content ul {
+		padding-left:1.5em;
+	}
+	.switchers ul {
+		padding:0;
+	}
+    #about {
+		background-image:url(../../media/contacts/contacts_bg_mobile.jpg);
+	}
+	#reviews .arrows {
+		display:none;
+	}
+	#rooms .sticker .logo.-big {
+		background-size:auto 17.3333em;
+	}
+	#topPannel .logo.-small {
+		background-size: 39.1072em;
+	}
+}
+
+/* For Smartphone (Landscape orientation) users (If window width > 640 px and < 768 px) */
+@media only screen and (min-width:641px) and (max-width:768px) {
+	.collumns.-two .col,
+	.collumns.-three .col,
+	.collumns.-four .col {
+		width:50%;
+	}
+}
+
+/* For Smartphone (Landscape orientation) users (If window width < 640 px) */
+@media only screen and (max-width:640px) {
+	.collumns.-two .col,
+	.collumns.-three .col,
+	.collumns.-four .col {
+		width:100%;
+	}
+	#reviews .reviewItem.-active .author .photo {
+		width:150px;
+		height:150px;
+		border-radius:75px;
+	}
+	#rooms .roomsItem .room-number {
+		display:none;
+	}
+}
+
+/* For Smartphone (Landscape orientation) users (If window width > 568 px and < 640 px) */
+@media only screen and (min-width:569px) and (max-width:640px) {
+	#prices .collumns.-two .col {
+		width:50%;
+	}
+}
+
+/* For Smartphone (Portrait orientation) users (If window width < 568 px) */
+@media only screen and (max-width:568px) {
+	
+}
+/* ================ */
