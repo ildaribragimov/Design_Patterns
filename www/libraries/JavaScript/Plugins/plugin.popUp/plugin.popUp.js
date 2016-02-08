@@ -54,7 +54,7 @@ function popUp(name, options) {
             self.close();
         });
         // Вставка текстового содержимого в элемент кнопки "Закрыть"
-        close.innerHTML = '<span class="icon -m">Закрыть</span>';        
+        close.innerHTML = '<span class="icon -m">X</span>';        
         // Вставка в корневой элемент кнопки "Закрыть окно"
         controls.appendChild(close);
         // Возвращение HTML-конструкции созданной панели
@@ -72,11 +72,11 @@ function popUp(name, options) {
         // Создание корневого элемента заголовка окна
         var header = document.createElement('div');
         // Добавление к элементу атрибута "class"
-        header.setAttribute("class", "header");
+        header.setAttribute("class", "header");        
         // Если Текст заголовка окна был передан при вызове плагина
         if (options.header) {
             // Вставка в корневой элемент блока с заголовком
-            header.innerHTML = '<div class="title">'+options.header+'</div>';
+            header.innerHTML = '<h3 class="title">'+options.header+'</h3>';
         }
         // Вызов метода генерации панели управления окном и втавка его в конец родительского
         header.appendChild(createContlols());
@@ -116,7 +116,7 @@ function popUp(name, options) {
          ** htmlTree (тип: object) - HTML-конструкция окна
          ** parentElem (тип: object) - Ссылка на родильский элемент текущего создаваемого элемента
          */
-        var htmlTree = ["popup", "wrapper", "container"],
+        var htmlTree = ["popup", "wrapper", "centered", "wrapper", "container"],
             parentElem = null;
         // Построение HTML-конструкции всплывающего окна в цикле
         for (var t = 0; t < htmlTree.length; t++) {
