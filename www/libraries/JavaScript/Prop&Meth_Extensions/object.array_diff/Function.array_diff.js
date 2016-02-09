@@ -18,7 +18,7 @@ function array_diff(array, filteringObject) {
     // Обход объекта (массива), в котором необходимо искать совпадения значений элементов, в цикле
     for(var i = 0, l = array.length; i < l; i++)	{
         // Если значение элемента объекта (массива) равно искомому значению
-        if( !in_array(array[i], filteringObject) {
+        if( !in_array(array[i], filteringObject) ) {
             // Добавление эелемента в массив результата сравнения
             resultArray.push(array[i]);
         }
