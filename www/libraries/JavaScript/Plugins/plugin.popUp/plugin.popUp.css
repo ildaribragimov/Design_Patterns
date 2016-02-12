@@ -1,109 +1,53 @@
-/**
- * Popup styles
- */
-/* general styles */
 .popup,
 .popup > .wrapper {
 	width:100vw;
 	height:100vh;    
 }
-.popup {
-	top:0;
-	left:0;
-	position:fixed;
-	background-color:rgba(0, 0, 0, 0.5); /* Задний фон */
-	z-index:200;
-    display:none;
-}
-.popup.opened {
-	display:block;
-}
-
 .popup > .wrapper,
 .popup > .wrapper > .centered,
 .popup .centered > .wrapper,
 .popup .centered > .wrapper > .container {
     position:relative;
 }
-.popup > .wrapper {
-    display:table-cell;
-    vertical-align:middle;
-}
-.popup > .wrapper > .centered {
-    width:100%;
-}
 .popup .centered > .wrapper,
 .popup .centered > .wrapper > .container {
     float:left;
+}
+.popup {
+	top:0;
+	left:0;
+	position:fixed;
+	z-index:200;
+    display:none; /* The popup is closed by default */
+}
+.popup.opened { /* If popup is opened */
+	display:block;
+}
+.popup > .wrapper { /* The Floating Popup Vertical Centering */
+    display:table-cell;
+    vertical-align:middle;
+}
+/* The Floating Popup Horizontal Centering */
+.popup > .wrapper > .centered {
+    width:100%;
 }
 .popup .centered > .wrapper {
     left:50%;
 }
 .popup .centered > .wrapper > .container {
     left:-50%;
-    margin:1.6666em 2.2222em;
-    /* padding:2.5em 1.6666em; */
-	border-radius:5px;
-	background-color:#f8f8f9;
-	box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.25);
 }
-
-/* popup Header */
-.popup .header {}
-.popup .title,
-.popup .content {
-    padding:0 2.2222em;
-}
+/* --- */
+/* The Floating Popup Controls Pannel */
 .popup .controls {
     position:absolute;
     top:0;
     right:0;
-    padding:0.8333em 0;
 }
 .popup .controls > a {
-    margin:0 0.8333em;
     float:right;
 }
-.popup .controls > a.close > .icon {
-    width:32px;
-    height:32px;
+.popup .controls .icon {
     display:block;
 }
-
-/* popup Content */
-.popup .content {
-    clear:both;
-}
-
-
-/**
- * Redefinition of styles depending on the device
- */
-
-/* For Desktop users (If window width <= 1280 px) */
-@media only screen and (max-width: 1296px) {}
-
-/* For Desktop users (If window width >= 960 px) */
-@media only screen and (min-width:976px) {}
-
-/* For Tablet & Smartphone users (If window width < 960 px) */
-@media only screen and (max-width: 976px) {}
-
-/* For Tablet users (If window width > 768 px and < 960 px) */
-@media only screen and (min-width:768px) and (max-width: 960px) {}
-
-/* For Smartphone users (If window width < 768 px) */
-@media only screen and (max-width:768px) {}
-
-/* For Smartphone (Landscape orientation) users (If window width > 640 px and < 768 px) */
-@media only screen and (min-width:641px) and (max-width:768px) {}
-
-/* For Smartphone (Landscape orientation) users (If window width < 640 px) */
-@media only screen and (max-width:640px) {}
-
-/* For Smartphone (Landscape orientation) users (If window width > 568 px and < 640 px) */
-@media only screen and (min-width:569px) and (max-width:640px) {}
-
-/* For Smartphone (Portrait orientation) users (If window width < 568 px) */
-@media only screen and (max-width:568px) {}
-/* ================ */
+/* --- */
