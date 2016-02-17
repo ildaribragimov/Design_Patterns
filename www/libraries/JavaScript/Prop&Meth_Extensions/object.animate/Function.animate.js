@@ -18,19 +18,30 @@ function animate(element, properties, callback, options){
     options = options || new Object;
     options.easingFunc = options.easingFunc || 'linear';
     options.duration = options.duration || 1000;
-    // Объявление перменных
-    var self = element, // Сохранение ссылки на элемент на котором был вызван метод в переменную
-        elementStyle = getComputedStyle(self), // Получение исходных CSS-стилей элемента, на котором вызван метод анимации
-        startingPointStyle = new Object, // Объект начальных значений анимируемых CSS-свойств
-        deltaStyles = new Object; // Объект разниц начальных и целевых значений анимируемых CSS-свойств
+    /**
+     * Объявление перменных
+     *
+     * * self (тип: object) - Ссылка на анимируемый элемент
+     * * elementStyle (тип: object) - Объект CSS-свойств анимируемого элемента
+     * * elementProperties (тип: Object) - Объект анимируемых CSS-свойств элемента
+     */
+    var self = element,
+        elementStyle = getComputedStyle(self),
+        elementProperties = new Object;
     // Перебор анимирумых свойств объекта в цикле
     for(var property in properties){
         // Если текущее свойство является собственным (не унаследованным)
         if (properties.hasOwnProperty(property)) {
-            // Создание объекта начальных значений анимируемых CSS-свойств
-            startingPointStyle[property] = parseFloat( elementStyle[property] );
-            // Создание объекта значнений на которые должны изменяться CSS-свойства за 1мс времени по линейной функции
-            deltaStyles[property] = (parseFloat( properties[property] ) - startingPointStyle[property]);
+            // Создание объекта свойств анимируемого CSS-свойства
+            elementProperties[property] = new Object;
+            // Добавление начального значения свойства
+            elementProperties[property].startingValue = parseFloat( elementStyle[property] );
+            // Добавление конечного значения свойства
+            elementProperties[property].endingValue = parseFloat( properties[property]);
+            // Добавление значения, на которое должно измениться свойство за 1 мс времени по линейной функции
+            elementProperties[property].deltaValue = (elementProperties[property].endingValue - elementProperties[property].startingValue);
+            // Добавленеи единыцы измерения свойства
+            elementProperties[property].unit = properties[property].toString().substr(elementProperties[property].endingValue.toString().length);
         }
     }
     // Метод временной функций, вычисляющей состояние анимации по текущему времени
@@ -70,7 +81,7 @@ function animate(element, properties, callback, options){
             // Если текущее свойство является собственным (не унаследованным)
             if (properties.hasOwnProperty(property)) {
                 // Изменение значений CSS-свойств элемента
-                self.style[property] = startingPointStyle[property] + progress * deltaStyles[property]+"px";
+                self.style[property] = elementProperties[property].startingValue + progress * elementProperties[property].deltaValue+elementProperties[property].unit;
             }
         }   
     }
@@ -95,7 +106,11 @@ function animate(element, properties, callback, options){
         // Вызов пользовательской функции обратного вызова после окончания анимации, если пользовательская функция задана
         if(callback){ callback(); }            
     }
-    // Объявление перменных:
-    var animationStartTime = performance.now(), // Время, прошедшее с начала загрузки страницы.
-        animationStep = requestAnimationFrame(animate); // Идентификатор шага анимации, возвращенный функцией "requestAnimationFrame"
+    /** Объявление перменных:
+     *
+     * * animationStartTime (тип: object) - Время, прошедшее с начала загрузки страницы
+     * * animationStep (тип: object) - Идентификатор шага анимации, возвращенный функцией "requestAnimationFrame"
+     */
+    var animationStartTime = performance.now(),
+        animationStep = requestAnimationFrame(animate);
 }
