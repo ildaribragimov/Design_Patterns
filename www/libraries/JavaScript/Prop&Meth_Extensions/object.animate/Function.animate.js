@@ -7,17 +7,17 @@
  * Аргументы:
  * * element (тип: object) - Ссылка на анимируемый элемент
  * * properties (тип: object) - Объект целевых значений CSS-свойств, которые должны быть изменены
- * * callback (тип: function) - Пользовательская функция обратного вызова, которая исполняется, по завершении анимации
  * * options (тип: object) - Объект параметров анимации. Содержит слудующие параметры:
  * * * easingFunction (тип: string) - Функция динамики выполнения, описывающая график анимации.
  * * * duration (тип: number) - Продолжительность анимации
+ * * callback (тип: function) - Пользовательская функция обратного вызова, которая исполняется, по завершении анимации
  */
-function animate(element, properties, callback, options){
+function animate(element, properties, options, callback){
     // Назначение значений по умолчанию параметрам анимации, если они не были переданы в вызове
-    callback = callback || null;
     options = options || new Object;
     options.easingFunc = options.easingFunc || 'linear';
     options.duration = options.duration || 1000;
+    callback = callback || null;
     /**
      * Объявление перменных
      *
