@@ -14,9 +14,9 @@
                     // Отмена действия по умолчанию браузера на событие
                     event.preventDefault();
                     // вызов метода анимации на целевом объекте
-                    animate(event.target, {width:"850px"}, function(){
+                    animate(event.target, {width:"850px"}, {easingFunc:'easeInOutQuint', duration:1000}, function(){
                         console.log('Анимация завершена!');
-                    }, {easingFunc:'easeInOutQuint', duration:1000});
+                    });
                 });
         });
     </script>
