@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta charset="utf-8">
+    <link href="normalize.css" rel="stylesheet" type="text/css">
+    <link href="/libraries/JavaScript/Plugins/plugin.popUp/plugin.popUp.css" rel="stylesheet" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script defer src="/libraries/JavaScript/Browsers_Supports/latest/requestAnimationFrame/requestAnimationFrame.polyfill.min.js" type="text/javascript"></script>
+    <script defer src="/libraries/JavaScript/Helpers/Meth.getTimingFunc/Meth.getTimingFunc.min.js" type="text/javascript"></script>
+    <script defer src="/libraries/JavaScript/Effects/animate/Function.animate.min.js" type="text/javascript"></script>
+    <script defer src="/libraries/JavaScript/Effects/show/Function.show.min.js" type="text/javascript"></script>
+    <script defer src="/libraries/JavaScript/Effects/hide/Function.hide.min.js" type="text/javascript"></script>
+    <script defer src="/libraries/JavaScript/Plugins/plugin.popUp/plugin.popUp.js" type="text/javascript"></script>
+    <script defer type="text/javascript">
+        // Явное указание на режим строгого соответствия современному стандарту
+        "use strict";
+        // Исполнение скрипта при готовности DOM-структуры документа
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            /**
+             * Создание объекта всплывающих окон на основе родительского класса "popUp" 
+             */
+            function newPopUp1(name, options) {
+                // Вызов класса (наследование) "popUp" с передачей параметров.
+                popUp.apply(this, arguments);
+                /**
+                 * Объявление переменных:
+                 *
+                 * * popup (тип: object) - Объект всплывающего окна, унаследованный от рродительского класса
+                 * * parentOpen (тип: function) - Метод "open" родительского класса
+                 * * parentClose (тип: function) - Метод "close" родительского класса
+                 */
+                var popup = this.popup,
+                    parentOpen = this.open,
+                    parentClose = this.close;
+                /**
+                 * Метод "open" открывает всплывающее окно
+                 */
+                this.open = function() {
+                    // Установка начальной прозрачности всплывающему окну
+                    popup.style.opacity = 0;
+                    // Вызов метода "open" родительского класса
+                    parentOpen.call(this);
+                    // Анимация элемента всплывающего окна - "появление"
+                    animate(popup, {opacity:1}, {duration:200});
+                };
+                /**
+                 * Метод "close" закрывает всплывающее окно
+                 */
+                this.close = function() {
+                    // Анимация элемента всплывающего окна - "растворение"
+                    animate(popup, {opacity:0}, {duration:200}, function(){
+                        // Вызов метода "close" родительского класса
+                        parentClose.call(this);
+                    });
+                };
+            }
+
+            /**
+             * Создание объекта всплывающих окон на основе родительского класса "popUp" 
+             */
+            function newPopUp2(name, options) {
+                // Вызов класса (наследование) "popUp" с передачей параметров.
+                popUp.apply(this, arguments);
+                /**
+                 * Объявление переменных:
+                 *
+                 * * popup (тип: object) - Объект всплывающего окна, унаследованный от рродительского класса
+                 * * parentOpen (тип: function) - Метод "open" родительского класса
+                 * * parentClose (тип: function) - Метод "close" родительского класса
+                 */
+                var popup = this.popup,
+                    parentOpen = this.open,
+                    parentClose = this.close;
+                /**
+                 * Метод "open" открывает всплывающее окно
+                 */
+                this.open = function() {
+                    // Установка начальной прозрачности всплывающему окну
+                    popup.style.opacity = 0;
+                    // Вызов метода "open" родительского класса
+                    parentOpen.call(this);
+                    // Анимация элемента всплывающего окна - "появление"
+                    show(popup, {duration:200});
+                };
+                /**
+                 * Метод "close" закрывает всплывающее окно
+                 */
+                this.close = function() {
+                    // Анимация элемента всплывающего окна - "растворение"
+                    hide(popup, {duration:200}, function(){
+                        // Вызов метода "close" родительского класса
+                        parentClose.call(this);
+                    });
+                };
+            }
+            
+            
+            // Создание экземпляра объекта "Всплывающего окна" с значением атрибута "value" кнопки в качестве ID
+            var popup1 = new popUp("action1", {type: "alert", header: "Уведомление 1", content:"<p>Это всплывающее окно без анимационного эффекта!</p>", navigation:"minimal"});
+            // Создание экземпляра объекта "Всплывающего окна" с значением атрибута "value" кнопки в качестве ID
+            var popup2 = new newPopUp1("action2", {type: "alert", header: "Уведомление 2", content:"<p>Это всплывающее окно с применением основной функции анимации!</p>", navigation:"minimal"});
+            // Создание экземпляра объекта "Всплывающего окна" с значением атрибута "value" кнопки в качестве ID
+            var popup3 = new newPopUp2("action3", {type: "alert", header: "Уведомление 3", content:"<p>Это всплывающее окно с применением упрощенного специализированного эффекта 'show'!</p>", navigation:"minimal"});
+
+            // Получение ссылки на элемент вызывающий окно
+            document.querySelector('button[value="action1"]')
+                // Назначение обработчика события клика по элементу
+                .addEventListener("touchend", function(event){
+                    // Отмена действия по умолчанию браузера на событие
+                    event.preventDefault();
+                    // Вызов события "onclick"
+                    event.target.click();
+                });
+            // Получение ссылки на элемент вызывающий окно
+            document.querySelector('button[value="action1"]')
+                // Назначение обработчика события клика по элементу
+                .addEventListener("click", function(event){
+                    // Отмена действия по умолчанию браузера на событие
+                    event.preventDefault();
+                    // Вызов метода "Открыть окно"
+                    popup1.open();
+                });
+
+            // Получение ссылки на элемент вызывающий окно
+            document.querySelector('button[value="action2"]')
+                // Назначение обработчика события клика по элементу
+                .addEventListener("touchend", function(event){
+                    // Отмена действия по умолчанию браузера на событие
+                    event.preventDefault();
+                    // Вызов события "onclick"
+                    event.target.click();
+                });
+            // Получение ссылки на элемент вызывающий окно
+            document.querySelector('button[value="action2"]')
+                // Назначение обработчика события клика по элементу
+                .addEventListener("click", function(event){
+                    // Отмена действия по умолчанию браузера на событие
+                    event.preventDefault();
+                    // Вызов метода "Открыть окно"
+                    popup2.open();
+                });
+
+            // Получение ссылки на элемент вызывающий окно
+            document.querySelector('button[value="action3"]')
+                // Назначение обработчика события клика по элементу
+                .addEventListener("touchend", function(event){
+                    // Отмена действия по умолчанию браузера на событие
+                    event.preventDefault();
+                    // Вызов события "onclick"
+                    event.target.click();
+                });
+            // Получение ссылки на элемент вызывающий окно
+            document.querySelector('button[value="action3"]')
+                // Назначение обработчика события клика по элементу
+                .addEventListener("click", function(event){
+                    // Отмена действия по умолчанию браузера на событие
+                    event.preventDefault();
+                    // Вызов метода "Открыть окно"
+                    popup3.open();
+                });
+
+        });
+    </script>
+</head>
+<body>
+    <h1>Плагин "Всплывающее окно"</h1>
+    <section>
+        <div class="element-button centered">
+            <div class="button-wrapper">
+                <button class="-green" value="action1">
+                    <span class="title">Без анимации</span>
+                    <span class="clr"></span>
+                </button>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </section>
+    <section>
+        <div class="element-button centered">
+            <div class="button-wrapper">
+                <button class="-green" value="action2">
+                    <span class="title">Анимация "animation"</span>
+                    <span class="clr"></span>
+                </button>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </section>
+    <section>
+        <div class="element-button centered">
+            <div class="button-wrapper">
+                <button class="-green" value="action3">
+                    <span class="title">Анимация "show/hide"</span>
+                    <span class="clr"></span>
+                </button>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </section>
+</body>
+</html>

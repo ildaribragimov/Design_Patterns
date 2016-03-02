@@ -1,0 +1,130 @@
+/**
+ * Подключение шрифтов
+ */
+
+/* Open Sans */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700italic,700&subset=cyrillic,latin);
+
+/* PT Serif */
+@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic);
+
+
+/**
+ * Global elements styles
+ */
+.clr {
+	clear:both;
+}
+/* ================ */
+
+
+/**
+ * Typographics
+ */
+html {
+	font-size:18px;
+	font-family: 'Open Sans', sans-serif;
+}
+body {
+	font-size:100%;
+	line-height:1.6666em;
+	text-align:center;
+}
+h1 {
+	font-family: 'PT Serif', 'Times New Roman';
+	font-weight: normal;
+}
+/* ================ */
+
+
+section {
+    width:100%;
+}
+
+/* Default Button Style */
+.element-button.centered .button-wrapper,
+.element-button.centered button {
+	float:left;
+	position:relative;
+}
+.button-wrapper {
+	padding-top:0.3333em;
+	padding-bottom:0.3333em;	
+}
+.element-button.centered .button-wrapper {
+	left:50%;
+}
+.element-button.centered button {
+	left:-50%;
+}
+button {
+	border-width:2px;
+	border-style:solid;
+	border-radius:4px;
+	padding-left:0;
+	padding-right:1em;
+	background:none;
+}
+button .title {
+	margin-left:1em;
+	float:left;
+}
+button .title {
+	margin-top:0.3888em;
+	margin-bottom:0.3888em;
+}
+button.-green {
+	border-color:#3b876f;
+	color:#3b876f;
+}
+button.-green:hover {
+	background:#3b876f;
+	color:#f8f8f9;
+}
+
+/**
+ * Popup styles
+ */
+/* Theme Styles begin */
+.popup {
+	background-color:rgba(0, 0, 0, 0.5); /* Back layer background */
+}
+.popup .centered > .wrapper > .container {
+    margin:1.6666em 2.2222em;
+	border-radius:5px;
+	background-color:#f8f8f9;
+	box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.25);
+}
+/* Popup Header */
+.popup .header {
+    color:#b1a8a6;
+}
+/* --- */
+/* Popup Controls Pannel */
+.popup .controls {
+    padding:0.8333em 0;    
+}
+.popup .controls > a {
+    margin:0 0.8333em;
+}
+.popup .controls .icon {
+    background-image:url(sprite_min.svg);
+	background-repeat:no-repeat;
+    width:32px;
+    height:32px;
+}
+/* Popup Close Button */
+.popup .controls > .close > .icon {
+	background-position: -320px -256px;
+}
+.popup .controls > .close:hover > .icon,
+.popup .controls > .close:active > .icon {
+	background-position: -368px -256px;
+}
+/* --- */
+/* Popup Content */
+.popup .content {
+    clear:both;
+}
+/* --- */
+/* ================ */
