@@ -15,8 +15,8 @@
 function animate(element, properties, options, callback){
     // Назначение значений по умолчанию параметрам анимации, если они не были переданы в вызове
     options = options || new Object;
-    var easing = options.easingFunc || 'linear',
-        duration = options.duration || 1000;
+    options.easingFunc = options.easingFunc || 'linear';
+    options.duration = options.duration || 1000;
     callback = callback || null;
     /**
      * Объявление переменных:
@@ -27,7 +27,7 @@ function animate(element, properties, options, callback){
      */
     var elementStyle = getComputedStyle(element),
         elementProperties = new Object,
-        timing = getTimingFunc(easing);
+        timing = getTimingFunc(options.easingFunc);
     // Перебор анимирумых свойств объекта в цикле
     for(var property in properties){
         // Если текущее свойство является собственным (не унаследованным)
@@ -58,7 +58,7 @@ function animate(element, properties, options, callback){
     // Метод с рекурсивным вызовом самого себя в зависимости от тех.возможностей браузера
     function animate(time){
         // Получение значения состояния завершенности анимации (принимает значение от 0 до 1)
-        var timeFraction = (time - animationStartTime) / duration; 
+        var timeFraction = (time - animationStartTime) / options.duration; 
         // Если произошло превышение времени анимации, тогда происходит фиксация конца анимации
         if (timeFraction > 1) {
             // Переопределение значения состояния завершенности анимации максимально возможным значением этого параметра
