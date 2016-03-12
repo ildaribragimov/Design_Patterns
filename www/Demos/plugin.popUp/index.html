@@ -15,7 +15,7 @@
         document.addEventListener("DOMContentLoaded", function(event) {
 
             // Создание экземпляра объекта "Всплывающего окна" с значением атрибута "value" кнопки в качестве ID
-            var popup = new popUp("action1", {type: "alert", header: "Уведомление", data:"<p>Это всплывающее окно с уведомлением о каком либо действии или новости!</p>", navigation:"minimal"});
+            var popup = new popUp("action1", {type: "alert", header: "Уведомление", content:"<p>Это всплывающее окно с уведомлением о каком либо действии или новости!</p>", navigation:"minimal"});
             
             // Получение ссылки на элемент вызывающий окно
             document.querySelector('button[value="action1"]')
