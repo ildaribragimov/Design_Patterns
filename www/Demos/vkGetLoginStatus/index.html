@@ -7,18 +7,45 @@
     <!--
     <script defer src="vkApiMethods.js" type="text/javascript"></script>
     -->
-    <script defer src="social.api.js" type="text/javascript"></script>
     <script type="application/javascript">
         "use strict";
         // Запуск исполнения сценария JS при готовности DOM
         document.addEventListener("DOMContentLoaded", function() {
-            //
-            var vkUser = new vkUserApi(5218692);
-            // Вывод переменной статуса авторизации посетителя сайта в консоль
-            var status = vkUser.getAuthStatus();
-            setTimeout(function(){alert(vkUser.getAuthStatus());},1000);
-            console.log(status);
-            setTimeout(function(){console.log( vkUser.getAuthStatus2() );},1000);
+            
+            // Инициализация API ВКонтакте
+            VK.init({
+                apiId: 5218692,
+            });
+            
+            // Получение сессионых данных пользователя, если он авторизован в ВКонтакте
+            VK.Auth.getLoginStatus(function(response){
+                /**
+                 * Объявление переменных
+                 *
+                 * * warning (тип: object) - HTML-Элемент для уведомления посетителя
+                 * * message (тип: string) - Текст уведомления для посетителя
+                 */
+                var authStatus = null,
+                    warning = document.createElement("p"),
+                    message = 'Мы не знаем кто вы. Представьтесь, пожалуйста!';
+
+                // Актуализируем переменную статуса авторизации посетителя
+                authStatus = (response.session) ? true: false;
+
+                // Если посетитель не идентифицирован
+                if(authStatus){
+                    // Переопледеление текста уведомления(приветствия)
+                    message = 'Вы успешно идентифицированы!';
+                }
+
+                // Вставка HTML-содержимого в элемент "p"
+                warning.innerHTML = '<strong>Здравствуйте!<br>'+message+'</strong>';
+                // Вставка элеента "p" в конец элемента ".window-wrapper"
+                document.querySelector('.window-wrapper').appendChild(warning);
+                
+                console.log( authStatus );
+            });
+
         });
     </script>
 </head>
