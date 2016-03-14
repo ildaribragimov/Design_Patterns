@@ -15,8 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     var authStatus = false;
 
-    // Узнаем текущий статус авторизации посетителя и получаем сесионые данные
-    VK.Auth.getLoginStatus(function(response){
+    function setLoginStatus(response){
         /**
          * Объявление переменных
          *
@@ -27,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
             message = 'Мы не знаем кто вы. Представьтесь, пожалуйста!';
         // Актуализируем переменную статуса авторизации посетителя
         authStatus = (response.session) ? true: false;
+        console.log( authStatus );
         // Если посетитель не идентифицирован
         if(authStatus){
             // Переопледеление текста уведомления(приветствия)
@@ -35,10 +35,21 @@ document.addEventListener("DOMContentLoaded", function() {
         // Вставка HTML-содержимого в элемент "p"
         warning.innerHTML = '<strong>Здравствуйте!<br>'+message+'</strong>';
         // Вставка элеента "p" в конец элемента ".window-wrapper"
-        document.querySelector('.window-wrapper').appendChild(warning);        
+        document.querySelector('.window-wrapper').appendChild(warning);
+        return authStatus;
+    };
+    
+    
+    // Узнаем текущий статус авторизации посетителя и получаем сесионые данные
+    var vg = VK.Auth.getLoginStatus(function(response){
+        var vf = setLoginStatus(response);
+        console.log( authStatus );
+        console.log( vf );
+        return vf;
     });
 
+    
     // Вывод переменной статуса авторизации посетителя сайта в консоль
-    console.log( (authStatus) ? 'Посетитель идентифицирован!' : 'Посетитель не идентифирован' );
+    console.log( vg );
 
 });
