@@ -88,5 +88,4 @@ function ajax(settings){
     }
     // Открытие соединения и отправка запроса на сервер
     xhr.send( body || null );
-
 };
