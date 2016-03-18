@@ -1,22 +1,19 @@
-// Явное указание на режим строгого соответствия современному стандарту
 "use strict";
 
 /**
  * Объект "Всплывающее окно"
  *
- * Свойства объекта:
- * * settings (тип: object) - Объект параметров запроса XMLHttpRequest
- * * * url (тип: string) - Адрес запроса
- * * * data (тип: string) - Данные, которые будут отправлены на сервер. Могут быть переданы как в виде URI-строки, так и в виде javascript-объекта
- * * * method (тип: string) - Метод отправки запроса
- * * * async (тип: boolean) - Тип запроса. "true" - асинхронный, "false" - синхронный
- * * * error (тип: boolean) - Функция, которая будет вызвана в случае неудачного завершения запроса к серверу
- * * * success (тип: boolean) - Функция, которая будет вызвана в случае удачного завершения запроса к серверу
- *
- * Методы объекта:
- * * getUriParams (тип: private) - Формирует URI-строку запроса, если данные, отправляемые на сервер, переданы в виде javascript-объекта
+ * @constructor
+ * @this {Ajax}
+ * @param {object} settings - Объект параметров запроса XMLHttpRequest
+ * @param {string} settings.url - Адрес запроса
+ * @param {string} settings.data - Данные, отправляемые на сервер. Могут быть переданы только как URI-строка или javascript-объекта
+ * @param {string} settings.method - Метод отправки запроса
+ * @param {boolean} settings.async - Тип запроса. "true" - асинхронный, "false" - синхронный
+ * @param {function} settings.error - Функция, которая будет вызвана в случае неудачного завершения запроса к серверу
+ * @param {function} settings.success - Функция, которая будет вызвана в случае удачного завершения запроса к серверу
  */
-function ajax(settings){
+function ajax(settings) {
     // Назначение значений по умолчанию параметрам объекта окна, если они не были переданы в вызове
     settings.data = settings.data || null;
     settings.method = settings.method || "get";
@@ -25,67 +22,67 @@ function ajax(settings){
     settings.success = settings.success || null;
     /**
      * Метод формирует URI-строку запроса
+     *
+     * @private
+     * @param {object} obj - Формирует URI-строку запроса из javascript-объекта
+     * @return {string} str - Сформированная URI-строка
      */
-    function getUriParams(obj){
+    function getUriParams(obj) {
         // Определение перменной URI-строки
         var str = "";
-        // Перебор передаваемого объекта данных в цикле
-        for ( var param in obj ) {
+        // Перебор эелементов передаваемого объекта данных в цикле
+        for (var param in obj) {
             // Если текущее свойство является собственным (не унаследованным)
-            if ( obj.hasOwnProperty(param) ) {
-                // Формирование URI-строки 
+            if (obj.hasOwnProperty(param)) {
                 str = str + param + "=" + encodeURIComponent(obj[param]) + "&";
             }
         }
-        // Возврат сгенерированной URI-троки
-        return str.substring( 0, str.length - 1 );
-    };
+        return str.substring(0, str.length - 1);
+    }
+    // Определение значения по умолчанию тела запроса
+    var body = null;
     // Если объект передаваемых данных не пуст
     if (settings.data) {
-        // Преобразование объекта передаваемых серверу данных в URI-строку
+        // Преобразование объекта, отправляемых данных в URI-строку
         if (typeof settings.data === 'object') {
             settings.data = getUriParams(settings.data);
         }
-        // Проверка метода отправки запроса.
+        // Формирвоание URI-строки или тела запроса в зависимости от метода отправки запроса.
         switch (settings.method) {
-            // Если метод отправки запроса - "get" 
             case "get":
-                // Формирвоание URI-строки запроса
                 settings.url = settings.url + "?" + settings.data;
-                // Прерывание выполнения конструкции "switch"
                 break;
-            // Если метод отправки запроса - "post"
             case "post":
-                // Формирование тела запроса
-                var body = settings.data;
-                // Прерывание выполнения конструкции "switch"
+                body = settings.data;
                 break;
         }
     }
-    // Получение объекта, поддерживаемого браузером (XMLHttpRequest - для IE7+, Firefox, Chrome, Opera, Safari; ActiveXObject - для IE6, IE5)
+    // Получение объекта, поддерживаемого браузером (ActiveXObject - для IE6, IE5)
     var xhr = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-    // Назначение обработчика события "readystatechange" (изменение состояния готовности)
-    xhr.onreadystatechange = function() {
-        // Если текущее состояни запроса имеет значение 4 (запрос завершен)
-        if ( xhr.readyState == 4 ) {
+    // Отслеживание состояния завершенности запроса
+    xhr.onreadystatechange = function () {
+        // Если запрос завершен
+        if (xhr.readyState === 4) {
             var text = xhr.responseText;
-            // Если код ответа состояния запроса - 200
-            if ( xhr.status == 200 ) {
-                // Вызов функции обратного вызова при успешном завершении запроса
-                if (settings.success) { settings.success(text); }
-                // Выход из функции
+            // Вызов функции обратного вызова при успешном завершении запроса
+            if (xhr.status === 200) {
+                if (settings.success) {
+                    settings.success(text);
+                }
                 return;
             }
             // Вызов функции обратного вызова при неудачном завершении запроса
-            if (settings.error) { settings.error(text); }
+            if (settings.error) {
+                settings.error(text);
+            }
         }
-    }
+    };
     // Установка параметров запроса
     xhr.open(settings.method, settings.url, settings.async);
-    // Установка заголовка запроса, в случае, если метод запроса - "post"
-    if (settings.method == "post"){
+    // Установка заголовка POST-запроса
+    if (settings.method === "post") {
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     }
-    // Открытие соединения и отправка запроса на сервер
-    xhr.send( body || null );
-};
+    // Открытие соединения и отправка запроса
+    xhr.send(body);
+}
