@@ -1,0 +1,18 @@
+.window-wrapper{
+    width:400px;
+    padding:50px;
+    background-color:#ececec;
+    text-align: center;
+}
+.photo, a, img {
+    width:150px;
+    height:150px;
+}
+.photo {
+    width:150px;
+    height:150px;
+    margin:0 auto;
+}
+a, img{
+    display:block;
+}

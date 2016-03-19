@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <!---->
+        <script defer src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
+        <script defer src="/libraries/JavaScript/Ajax/ajax.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            "use strict";
+            // Исполнение скрипта после полной загрузки страницы
+            window.onload = function(){
+
+                // Инициализация API ВКонтакте
+                VK.init({
+                    apiId: 5218692,
+                });
+
+                // Получение сессионых данных пользователя, если он авторизован в ВКонтакте
+                VK.Auth.getLoginStatus(getPageTemplate);
+
+                function getPageTemplate(response) {
+                    // Создание экземпляра объекта "ajax"
+                    var xhr = new ajax({
+                        url: "vkLogin.php",
+                        method: "post",
+                        data: response.session,
+                        error: function(result){
+                            console.log(result);
+                            document.querySelector(".window-wrapper").innerHTML = result;
+                        },
+                        success: function(result){
+                            console.log(result);
+                            document.querySelector(".window-wrapper").innerHTML = result;
+                        }                    
+                    });
+                }
+
+            };
+        </script>
+    </head>
+    <body>
+        <h1>Страница профиля посетителя, авторизованного через ВКонтакте</h1>
+        <div class="window-wrapper"></div>
+     </body>
+</html>
