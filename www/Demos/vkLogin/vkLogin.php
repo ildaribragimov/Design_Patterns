@@ -3,7 +3,7 @@
  * Файл-контроллер
  */
 // Подключение вспомогательного файла PHP-класса работы с пользователем
-include_once "../../library/php/VK/VK.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/library/php/VK/VK.php";
 // 
 $vk = new VK(5218692);
 echo "<div><br>".$vk->getProperty("app_id")."<br></div>";
