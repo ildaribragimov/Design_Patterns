@@ -9,13 +9,13 @@ include_once $_SERVER['DOCUMENT_ROOT']."/library/php/Object/Object.php";
  * @author Ildar Ibragimov <iibragimov84@gmail.com>
  * @copyright Ildar Ibragimov, 2016 
  *
- * @method void __construct() Конструктор Класса "VKUsers"
+ * @method void __construct() Конструктор Класса "vkUsers"
  * @method void get(string $user_ids, string $fields, string $name_case) Получает расширенную информацию о пользователях
  */
-class VKUsers extends Object
+class vkUsers extends Object
 {
     /**
-     * Конструктор Класса "VKUsers"
+     * Конструктор Класса "vkUsers"
      *
      * @constructor
      * @return void
