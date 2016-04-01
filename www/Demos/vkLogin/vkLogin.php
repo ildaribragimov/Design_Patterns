@@ -21,6 +21,9 @@ $userInfo = $vk->request("users.get", array(
     fields => "id,first_name,last_name,photo_200_orig,domain"
 ));
 
+echo "<pre>";
+print_r($userInfo);
+echo "</pre>";
 // echo "<div><br>".$vk->getProperty("app_id")."<br></div>";
 
 // Подключение шаблона вывода формы добавления отзыва

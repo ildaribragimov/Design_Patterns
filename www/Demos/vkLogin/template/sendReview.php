@@ -2,9 +2,9 @@
 /**
  * Описание шаблона вывода блока подкючения внешних файлов JS-скриптов и CSS-стилей
  */
+$user = $userInfo->response[0];
 ?>
-<p>Форма добавление отзыва</p>
 <div>
-    <div><a href="<?php echo "http://vk.com/".$userInfo->domain; ?>" target="_blank"><img src="<?php echo $userInfo->photo_200_orig; ?>"></a></div>
-    <p><a href="<?php echo "http://vk.com/".$userInfo->domain; ?>" target="_blank"><?php echo $userInfo->first_name." ".$userInfo->last_name; ?></a></p>
+    <div><a href="<?php echo "http://vk.com/".$user->domain; ?>" target="_blank"><img src="<?php echo $user->photo_200_orig; ?>"></a></div>
+    <p><a href="<?php echo "http://vk.com/".$user->domain; ?>" target="_blank"><?php echo $user->first_name." ".$user->last_name; ?></a></p>
 </div>
