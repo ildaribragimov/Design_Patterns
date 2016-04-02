@@ -19,33 +19,9 @@
                 // Получение сессионых данных пользователя, если он авторизован в ВКонтакте
                 VK.Auth.getLoginStatus(getPageTemplate);
 
+                var windowContainer = document.querySelector(".window-wrapper");
+                
                 function getPageTemplate(response) {
-                    console.log(response);
-                    if (!response.session) {
-                        alert("not auth");
-                        var xhr1 = new ajax({
-                            url: "template/signIn.php",
-                            method: "post",
-                            error: function(result){
-                                console.log(result);
-                                document.querySelector(".window-wrapper").innerHTML = result;
-                            },
-                            success: function(result){
-                                console.log(result);
-                                //
-                                var ty = result.replace(/(\s{2,})/ig, "");
-                                console.log(ty);
-                                
-                                var rf = (/(?:<.*script[^>]*>)(.*)(?:<.*script[^>]*>)/ig).exec(ty)[1];
-                                console.log(rf);
-
-                                eval(rf);
-                                
-                                document.querySelector(".window-wrapper").innerHTML = result;
-                            }                    
-                        });
-                        return;
-                    }
                     // Создание экземпляра объекта "ajax"
                     var xhr = new ajax({
                         url: "vkLogin.php",
@@ -56,8 +32,14 @@
                             document.querySelector(".window-wrapper").innerHTML = result;
                         },
                         success: function(result){
-                            console.log(result);
-                            document.querySelector(".window-wrapper").innerHTML = result;
+                            //console.log(result);
+                            windowContainer.innerHTML = result;
+                            var includedJs = windowContainer.getElementsByTagName("script"),
+                                includedJsContent = "";
+                            for (var i = 0; i < includedJs.length; i++) {
+                                includedJsContent += includedJs[i].textContent;
+                            }
+                            eval(includedJsContent);
                         }                    
                     });
                 }
