@@ -15,12 +15,11 @@
                 VK.init({
                     apiId: 5218692,
                 });
-
                 // Получение сессионых данных пользователя, если он авторизован в ВКонтакте
                 VK.Auth.getLoginStatus(getPageTemplate);
-
+                // Получение ссылки на элемент ".window-wrapper"
                 var windowContainer = document.querySelector(".window-wrapper");
-                
+                // Функция-обратного вызова метода "Auth.getLoginStatus" объекта "VK"
                 function getPageTemplate(response) {
                     // Создание экземпляра объекта "ajax"
                     var xhr = new ajax({
@@ -29,10 +28,10 @@
                         data: response.session,
                         error: function(result){
                             console.log(result);
-                            document.querySelector(".window-wrapper").innerHTML = result;
+                            windowContainer.innerHTML = result;
                         },
                         success: function(result){
-                            //console.log(result);
+                            console.log(result);
                             windowContainer.innerHTML = result;
                             var includedJs = windowContainer.getElementsByTagName("script"),
                                 includedJsContent = "";
@@ -43,6 +42,29 @@
                         }                    
                     });
                 }
+                // Функция обратного вызова метода "Auth.login" объекта "VK"
+                function getUserInfo(response) {
+                    console.log(response.session);
+                    console.log(response.session.user);
+                    console.log(response.settings);
+                    if (response.session) {
+                        /* Пользователь успешно авторизовался */
+                        if (response.settings) {
+                            /* Выбранные настройки доступа пользователя, если они были запрошены */ 
+                        } 
+                    } else {
+                        /* Пользователь нажал кнопку Отмена в окне авторизации */         
+                    } 
+                }
+                // Подписка на событие "Авторизация пользователя в ВКонтакте" и обработка его
+                VK.Observer.subscribe("auth.login", function () {
+                    alert ("Вы авторизованы. Примите поздравления!");
+                    console.log(VK.Auth.getSession());
+                });
+                // Подписка на событие "Выход из ВКонтакте" и обработка его
+                VK.Observer.subscribe("auth.logout", function () {
+                    alert ("Вы вышли из соц.сети!");
+                });
 
             };
         </script>

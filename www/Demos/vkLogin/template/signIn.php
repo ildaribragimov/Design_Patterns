@@ -8,19 +8,8 @@
     document.querySelector(".signInThroughVk").addEventListener("click", function(e){
         e.preventDefault();
 
-        VK.Auth.login(function(response) { 
-            console.log(response.session);
-            console.log(response.settings);
-            
-            if (response.session) {
-                /* Пользователь успешно авторизовался */ 
-                if (response.settings) {
-                    /* Выбранные настройки доступа пользователя, если они были запрошены */ 
-                } 
-            } else {
-                /* Пользователь нажал кнопку Отмена в окне авторизации */         
-            } 
-        }); 
+        VK.Auth.login(getUserInfo);
+
 
         return false;
     });
