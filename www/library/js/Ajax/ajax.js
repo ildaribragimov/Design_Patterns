@@ -73,7 +73,7 @@ function ajax(settings) {
             }
             // Вызов функции обратного вызова при неудачном завершении запроса
             if (settings.error) {
-                settings.error(text);
+                settings.error(xhr.status + ": " + xhr.statusText);
             }
         }
     };
