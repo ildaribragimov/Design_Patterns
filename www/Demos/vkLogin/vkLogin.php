@@ -18,7 +18,7 @@ $vk = new vk(5218692);
 // Вызов метода "users.get" API ВКонтакте
 $userInfo = $vk->request("users.get", array(
     user_ids => $_REQUEST["mid"],
-    fields => "id,first_name,last_name,photo_200_orig,domain"
+    fields => "id,first_name,last_name,photo_200_orig,domain,online"
 ));
 
 echo "<pre>";
