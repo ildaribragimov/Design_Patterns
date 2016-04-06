@@ -36,33 +36,32 @@ define('_INDEX', 1);
                         data: response.session,
                         error: function(result){
                             console.log(result);
-                            //windowContainer.innerHTML = result;
                             insertContent(result, windowContainer);
                         },
                         success: function(result){
                             console.log(result);
-                            //windowContainer.innerHTML = result;
                             insertContent(result, windowContainer);
-                            var includedJs = windowContainer.getElementsByTagName("script"),
-                                includedJsContent = "";
-                            for (var i = 0; i < includedJs.length; i++) {
-                                includedJsContent += includedJs[i].textContent;
-                            }
-                            eval(includedJsContent);
                         }                    
                     });
                 }
 
+                /**
+                 * 
+                 */
                 function insertContent(content, toElement) {
                     toElement.innerHTML = content;
+                    executeJS(toElement.getElementsByTagName("script"));
                 }
 
-                function parseHTML() {
-                    
-                }
-                
-                function executeJS(string) {
-                    
+                /**
+                 * 
+                 */
+                function executeJS(jsCollection) {
+                    var includedJsContent = "";
+                    for (var i = 0; i < jsCollection.length; i++) {
+                        includedJsContent += jsCollection[i].textContent;
+                    }
+                    eval(includedJsContent);
                 }
 
                 // Функция обратного вызова метода "Auth.login" объекта "VK"
