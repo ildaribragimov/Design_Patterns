@@ -31,7 +31,7 @@ define('_INDEX', 1);
                 function getPageTemplate(response) {
                     // Создание экземпляра объекта "ajax"
                     var xhr = new ajax({
-                        url: "vkLogin.php",
+                        url: "vkLogin",
                         method: "post",
                         data: response.session,
                         error: function(result){
