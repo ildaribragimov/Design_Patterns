@@ -30,42 +30,59 @@ function accordion(selector) {
         resetSectionsHeights(sectionsContents);
         // Назначение обработчика события клика по заголовку секции аккордеона
         selector.addEventListener("click", function(event) {
+            var target = event.target;
             // Отмена действия по умолчанию браузера на событие
             event.preventDefault();
             // Обработка события, если оно было вызвано на элементе заголовка секции аккордеона
-            if (event.target.classList.contains("link") || parent(event.target, ".link")) {
+            if (target.classList.contains("link") || parent(target, ".link")) {
                 // Сворачивание/Разворачивание секции аккордеона в зависимости от ее текущего состояния
-                self.toggle(event.target);
+                self.toggle(target);
             }
         });
         // Назначение обработчика события завершения анимации раскрытия секции аккордеона
         selector.addEventListener('transitionend', function(event) {
+            var target = event.target;
             // Условие на соответствие требованиям к отлавливаемому событию
-            if (event.propertyName == "height" && parent(event.target, '.accordion__section_open')) {
+            if (event.propertyName == "height" && parent(target, '.accordion__section_open')) {
                 // Вызов метода пересчета значений высот содержимых секций
-                resetSectionsHeights(sectionsContents);
+                resetSectionHeight(target.querySelector('.accordion__section-content-wrapper'));
                 // Вызов метода назначение высоты элементу
-                setHeight(event.target, event.target.dataset.blockHeight+"px");
+                setHeight(target, target.dataset.blockHeight+"px");
             }
         });
     }
     /**
-     * Метод пересчитывает значения высоты содержимого секции аккордеона
+     * Метод пересчитывает значения высот содержимого секций аккордеона
      * 
      * @method
      * @private
-     * @description пересчитывает значения высоты содержимого секции аккордеона и записывает полученное значение в атрибут "data-block-height" элемента с CSS-классом "accordion__section-content"
+     * @description пересчитывает значения высот содержимого секций аккордеона и записывает полученные значения в атрибуты "data-block-height" родительским элементам с CSS-классом "accordion__section-content"
      *
      * @param {collection} sections - Коллекция DOM-узлов содержимого секций
+     *
+     * @return void
      */
     function resetSectionsHeights(collection) {
-        var sectionParent, sectionStyles, i;
-        for (i = 0; i < collection.length; i++) {
-            sectionStyles = getComputedStyle(collection[i]);
-            sectionParent = parent(collection[i], ".accordion__section-content");
-            sectionParent.dataset.blockHeight = collection[i].offsetHeight + parseFloat(sectionStyles.marginTop) + parseFloat(sectionStyles.marginBottom);
+        for (var i = 0; i < collection.length; i++) {
+            resetSectionHeight(collection[i]);
         }
-        sectionParent = sectionStyles = i = null;
+    }
+    /**
+     * Метод пересчитывает значение высоты содержимого секции аккордеона
+     * 
+     * @method
+     * @private
+     * @description пересчитывает значение высоты содержимого секции аккордеона и записывает полученное значение в атрибут "data-block-height" родительского элемента с CSS-классом "accordion__section-content"
+     *
+     * @param {collection} element - DOM-узел содержимого секции
+     *
+     * @return void
+     */
+    function resetSectionHeight(element) {
+        var sectionStyles = getComputedStyle(element),
+            sectionParent = parent(element, ".accordion__section-content");
+        sectionParent.dataset.blockHeight = element.offsetHeight + parseFloat(sectionStyles.marginTop) + parseFloat(sectionStyles.marginBottom);        
+        sectionParent = sectionStyles = null;
     }
     /**
      * Метод "setHeight"
