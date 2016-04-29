@@ -1,0 +1,58 @@
+/* Roboto */
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700,300&subset=latin,cyrillic);
+/* Bitter */
+@font-face {
+    font-family: 'Bitter';
+    src: local('Bitter'), local('Bitter-Regular'),
+        url('../fonts/bitter/bitter.ttf') format('truetype'),
+        url('../fonts/bitter/bitter.woff2') format('woff2'),
+        url('../fonts/bitter/bitter.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Bitter';
+    src: local('Bitter Italic'), local('Bitter-Italic'), url('../fonts/bitter/bitteritalic.woff2') format('woff2'), url('../fonts/bitter/bitteritalic.woff') format('woff'), url('../fonts/bitter/bitteritalic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Bitter';
+    src: local('Bitter Bold'), local('Bitter-Bold'), url('../fonts/bitter/bitterbold.woff2') format('woff2'), url('../fonts/bitter/bitterbold.woff') format('woff'), url('../fonts/bitter/bitterbold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Bitter';
+    src: local('Bitter Bold Italic'), local('Bitter-BoldItalic'), url('../fonts/bitter/bitterbolditalic.woff2') format('woff2'), url('../fonts/bitter/bitterbolditalic.woff') format('woff'), url('../fonts/bitter/bitterbolditalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+/* Lumberjack */
+@font-face {
+    font-family: 'Lumberjack';
+    src: local('Lumberjack'), url('../fonts/lumberjack/Lumberjack.otf') format('otf');
+    font-weight: 400;
+    font-style: normal;
+}
+/* Bully */
+@font-face {
+    font-family: 'Bully';
+    src: local('Bully'), url('../fonts/bully/Bully.woff2') format('woff2'), url('../fonts/bully/Bully.woff') format('woff'), url('../fonts/bully/Bully.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+/* Kazmann */
+@font-face {
+    font-family: 'Kazmann Sans';
+    src: local('Kazmann Sans'), url('../fonts/kazmann/Kazmann Sans.ttf') format('truetype');
+    font-weight: 400; 
+    font-style: normal;
+}
+/* RistrettoSlabPro-Regular */
+@font-face {
+    font-family: 'Ristretto Slab Pro';
+    src: local('RistrettoSlabPro-Regular'), url('../fonts/ristretto-slab-pro-regular/RistrettoSlabPro-Regular.otf') format('otf');
+    font-weight: 400; 
+    font-style: normal;
+}

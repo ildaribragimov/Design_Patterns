@@ -1,0 +1,13 @@
+.sidebar__outer-content {
+    -webkit-transition: margin 0.25s;
+    -moz-transition: margin 0.25s;
+    -ms-transition: margin 0.25s;
+    -o-transition: margin 0.25s;
+    transition: margin 0.25s;
+}
+.sidebar_left.sidebar_open .sidebar__outer-content {
+    margin-left: 240px;
+}
+.sidebar_right.sidebar_open .sidebar__outer-content {
+    margin-left: -240px;
+}

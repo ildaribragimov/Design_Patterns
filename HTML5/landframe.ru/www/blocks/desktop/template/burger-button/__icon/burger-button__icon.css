@@ -1,0 +1,5 @@
+.burger-button__icon span,
+.burger-button__icon span::before,
+.burger-button__icon span::after {
+    background-color: #252525;
+}

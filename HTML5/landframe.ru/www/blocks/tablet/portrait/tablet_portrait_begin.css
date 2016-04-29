@@ -1,0 +1,5 @@
+/** 
+ * BEGIN level 2.1 - tablet portrait orientation styles
+ */
+@media only screen and (max-width: 976px),
+@media only screen and (min-width:768px) and (max-width: 976px) {

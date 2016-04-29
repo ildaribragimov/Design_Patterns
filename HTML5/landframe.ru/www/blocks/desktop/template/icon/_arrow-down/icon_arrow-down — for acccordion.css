@@ -1,0 +1,18 @@
+.icon_arrow-down::before {
+    content: '';
+    background-image: url("../img/arrow-down.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-transition: 0.25s ease-out;
+    -moz-transition: 0.25s ease-out;
+    -ms-transition: 0.25s ease-out;
+    -o-transition: 0.25s ease-out;
+    transition: 0.25s ease-out;
+}
+.accordion__section_open .icon_arrow-down::before {
+    -webkit-transform: rotate(180deg); /** Chrome & Safari **/
+    -moz-transform: rotate(180deg); /** Firefox **/    
+    -ms-transform: rotate(180deg); /* Для IE */
+    -o-transform: rotate(180deg); /** Opera **/
+    transform: rotate(180deg);
+}
