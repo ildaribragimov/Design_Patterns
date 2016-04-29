@@ -1,0 +1,7 @@
+.logo__wrapper {
+    position: relative;    
+}
+.logo_centered .logo__wrapper {
+    float: left;
+    left: 50%;
+}

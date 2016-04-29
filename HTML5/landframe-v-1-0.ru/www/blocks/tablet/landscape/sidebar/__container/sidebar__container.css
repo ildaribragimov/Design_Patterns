@@ -1,0 +1,11 @@
+.sidebar__container {
+    width:240px;
+    top:60px;
+    z-index: 5;
+}
+.sidebar_left .sidebar__container {
+    left:0;
+}
+.sidebar_right .sidebar__container {
+    right:0;
+}

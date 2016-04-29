@@ -1,0 +1,6 @@
+.top-pannel__burger-button {
+    position: absolute;
+    top: 0;
+    z-index: 120;
+    display: none;
+}

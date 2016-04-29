@@ -1,0 +1,28 @@
+.icon_size_xs::before {
+    width: 16px;
+    height: 16px;
+}
+.icon_size_s::before {
+    width: 24px;
+    height: 24px;
+}
+.icon_size_m::before {
+    width: 32px;
+    height: 32px;
+}
+.icon_size_l::before {
+    width: 48px;
+    height: 48px;
+}
+.icon_size_xl::before {
+    width: 64px;
+    height: 64px;
+}
+.icon_size_2xl::before {
+    width: 128px;
+    height: 128px;
+}
+.icon_size_3xl::before {
+    width: 256px;
+    height: 256px;
+}

@@ -1,0 +1,6 @@
+.icon_arrow-down::before {
+    content: '';
+    background-image: url("../img/arrow-down.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
