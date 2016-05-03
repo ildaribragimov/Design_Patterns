@@ -8,7 +8,7 @@
  * * event (тип: object) - Ссылка на объект события
  * * callback (тип: function) - Функция обратного вызова, исполняемая при завершении анимации
  */
-function scrollingToAnchor(event, callback){
+function scrollingToAnchor(anchorLink, callback){
     // Назначение атрибуту значения по умолчанию
     callback = callback || null;
     /** 
@@ -17,8 +17,8 @@ function scrollingToAnchor(event, callback){
      * link (тип: string) - Значение атрибута HREF целевого элемента (Строка, содержащая ссылку на якорь)
      * anchor (тип: boolean) - Ссылка на объект закладки (Якоря)
      */
-    var link = event.target.getAttribute('href'),
-        anchor = document.getElementById( link.match(/[^#].*/) );
+    var link = anchorLink.getAttribute('href'),
+        anchor = document.querySelector('.anchor[name='+link.match(/[^#].*/)+']');
     // Если закладка не найдена по указанной ссылке, выходим из функции
     if (anchor === null) {
         // Вызов пользовательской функции после окончания анимации
@@ -39,7 +39,7 @@ function scrollingToAnchor(event, callback){
             document.body.offsetHeight, viewport.offsetHeight,
             document.body.clientHeight, viewport.clientHeight
         ),
-        scrollTopValue = anchor.offsetTop,
+        scrollTopValue = anchor.getBoundingClientRect().top + pageYOffset,
         fps = 75,
         scrollPageY = setInterval(function(){
             /**
