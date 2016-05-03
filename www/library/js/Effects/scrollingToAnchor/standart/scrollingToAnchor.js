@@ -39,7 +39,7 @@ function scrollingToAnchor(anchorLink, callback){
             document.body.offsetHeight, viewport.offsetHeight,
             document.body.clientHeight, viewport.clientHeight
         ),
-        scrollTopValue = anchor.getBoundingClientRect().top + pageYOffset,
+        scrollTopValue = Math.round(anchor.getBoundingClientRect().top + pageYOffset),
         fps = 75,
         scrollPageY = setInterval(function(){
             /**
@@ -68,7 +68,7 @@ function scrollingToAnchor(anchorLink, callback){
                 if (callback) { callback(); }
             } else {
                 // Вызов метода "Прокрутки относительно текущего положения" объекта "window"
-                window.scrollBy(0,scrollStep);
+                window.scrollBy(0, scrollStep);
             }
         }, 1000/fps);
 };
