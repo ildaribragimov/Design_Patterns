@@ -1,5 +1,0 @@
-.logo_centered::after {
-    content: '';
-    display: block;
-    clear: both;
-}
