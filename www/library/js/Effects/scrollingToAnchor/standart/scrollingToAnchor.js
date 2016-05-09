@@ -5,20 +5,12 @@
  * ============================================== 
  *
  * Аргументы:
- * * event (тип: object) - Ссылка на объект события
+ * * anchor (тип: object) - Ссылка на объект (элемент) закладки (якоря)
  * * callback (тип: function) - Функция обратного вызова, исполняемая при завершении анимации
  */
-function scrollingToAnchor(anchorLink, callback){
+function scrollingToAnchor(anchor, callback){
     // Назначение атрибуту значения по умолчанию
     callback = callback || null;
-    /** 
-     * Объявление переменных:
-     *
-     * link (тип: string) - Значение атрибута HREF целевого элемента (Строка, содержащая ссылку на якорь)
-     * anchor (тип: boolean) - Ссылка на объект закладки (Якоря)
-     */
-    var link = anchorLink.getAttribute('href'),
-        anchor = document.querySelector('.anchor[name='+link.match(/[^#].*/)+']');
     // Если закладка не найдена по указанной ссылке, выходим из функции
     if (anchor === null) {
         // Вызов пользовательской функции после окончания анимации
