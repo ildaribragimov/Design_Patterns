@@ -4,7 +4,7 @@
  * @author Ildar Ibragimov <iibragimov84@gmail.com>
  * @copyright Ildar Ibragimov 2016
  */
-function getScrollWidth(){
+function getScrollBarWidth(){
     // Создание элемента с произвольного блока
     var div = document.createElement('div');
     // Назначение CSS-стилей элементу
@@ -23,4 +23,4 @@ function getScrollWidth(){
     // Возвращение результата функции
     return scrollWidth;
 }
-var scrollWidth = getScrollWidth();
+var scrollbarWidth = getScrollBarWidth();
